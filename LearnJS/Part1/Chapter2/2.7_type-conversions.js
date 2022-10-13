@@ -20,3 +20,4 @@ Boolean(example3)       // Output: false - возвразает true если н
 
 // Task 1
 // https://www.codewars.com/kata/577bd8d4ae2807c64b00045b/train/javascript
+// Solution in ../../CodeWars/Completed/7kyu_two-fighters,-one-winner.js
