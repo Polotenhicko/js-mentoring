@@ -16,5 +16,5 @@ alert( isBoss ); // true, если нажата OK
 
 
 // Task 1
-let userName = prompt('Как тебя зовут?')
-alert(userName)
+let userName = prompt('Как тебя зовут?');
+alert(userName);
