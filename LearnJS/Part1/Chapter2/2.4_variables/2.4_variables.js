@@ -13,14 +13,15 @@ const unchangeable = 'example2';
 
 
 // Task 1
-let admin, name;
+let admin = null;
+let name = null;
 name = 'Джон';
 admin = name;
 console.log(admin);
 
 // Task 2
-let ourPlanetName;
-let currentUserName;
+let ourPlanetName = null;
+let currentUserName = null;
 
 // Task 3
 const BIRTHDAY = '18.04.1982'; // Константа «жёстко закодированна»
