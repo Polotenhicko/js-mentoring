@@ -18,8 +18,8 @@
  * `|` - OR(или) 
  * `^` - XOR(побитовое исключающее или) 
  * `~` - NOT(не) 
- * `<<` - LEFT SHIFT(левый сдвиг) 
- * `>>` - RIGHT SHIFT(правый сдвиг) 
+ * `<<` - LEFT SHIFT(левый сдвиг) - добавляет `n` нулей слева (умножает на 2**n)
+ * `>>` - RIGHT SHIFT(правый сдвиг) - убирает `n` битов слева (делит на 2**n)
  * `>>>` - ZERO-FILL RIGHT SHIFT(правый сдвиг с заполнением нулями) 
 */
 
@@ -51,6 +51,11 @@ true + false   // Output: 1
 null + 1       // Output: 1
 undefined + 1  // Output: NaN
 " \t \n" - 2   // Output: -2
+{} + 1         // Output: '[object Object]1'
+undefined + null  // Output: NaN
+'   ' + {}     // Output: '   [object Object]'
+true + null    // Output: 1
+false + undefined // Output: NaN
 
 
 // Task 4
