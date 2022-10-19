@@ -57,5 +57,5 @@ if (login === null) {
   }
 } else {
   alert('Я вас не знаю');
-}
+};
 

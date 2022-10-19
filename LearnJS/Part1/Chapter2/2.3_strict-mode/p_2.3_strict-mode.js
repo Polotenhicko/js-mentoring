@@ -8,7 +8,7 @@
 // В обычном режиме следующие ошибки игнорируются и вызывают непредвиденные результаты выполнения:
 'use strict';
 
-// Без strict mode в функции без родителя `this` указывает на глобальный объект, в strict mod'e эта `this` указывает на undefined
+// Без strict mode, в функции без родителя `this` указывает на глобальный объект; в strict mod'e эта `this` указывает на undefined
 let func = function() { console.log(this) } 
 func()
 

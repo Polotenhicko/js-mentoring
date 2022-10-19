@@ -7,7 +7,7 @@ function divisors(integer) {
       if (integer % i === 0) { result.push(i); };
     };
   return result.length ? result : `${integer} is prime`;
-};
+}
 
 
 // https://www.codewars.com/kata/5168bb5dfe9a00b126000018/javascript
@@ -20,9 +20,9 @@ function solution(str){
   while (i >= 0) {
     result += str[i];
     i--;
-  }
+  };
   return result;
-};
+}
 
 
 // https://www.codewars.com/kata/54ff3102c1bad923760001f3/javascript
@@ -32,6 +32,6 @@ function getCount(str) {
   let sum = 0;
   for (let i = 0; i < str.length; i++) {
     if (str[i].match(/[aeiou]/g)) { sum++ };
-  }
+  };
   return sum;
 }

@@ -24,7 +24,7 @@ if (b > 0){
     alert(-1)
 } else {
     alert(0)
-}
+};
 
 
 // Task 4
