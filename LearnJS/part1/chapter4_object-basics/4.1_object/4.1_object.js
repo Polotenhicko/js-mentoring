@@ -19,11 +19,11 @@ console.log("key" in exampleObj)
 
 // `for...in` каждую итерацию выдает след. имя свойства 
 for (let eachKey in exampleObj) {
-  console.log('key ' + eachKey);
+  console.log('key: ' + eachKey);
 };
 // если обращаться к объекту по имени св-ва, вернется значение св-ва
 for (eachKey in exampleObj) {
-  console.log('value ' + exampleObj[eachKey]);  
+  console.log('value: ' + exampleObj[eachKey]);  
 };
 // св-ва итерируются и отображаются в таком порядке: если это '1', '2', '100000' и тд, то отображаются первыми по порядку, остальные в порядке добавления
 
