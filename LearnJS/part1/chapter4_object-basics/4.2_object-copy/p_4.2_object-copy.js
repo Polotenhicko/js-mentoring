@@ -25,7 +25,7 @@ const copyObj = (obj) => {
   return resultObj;
 };
 
-// console.log(copyObj(object1));
+console.log(copyObj(object1));
 
 
 // Tests
