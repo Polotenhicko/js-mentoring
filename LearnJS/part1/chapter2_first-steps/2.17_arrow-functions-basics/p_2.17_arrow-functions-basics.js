@@ -1,10 +1,8 @@
 // https://www.codewars.com/kata/572ab0cfa3af384df7000ff8/javascript
 // 7 kuy Training JS #22: Unlock new skills--Arrow function,spread operator and deconstruction
 
-'use strict'
 const shuffleIt = (arr,...ex) => {
-  let [a,b] = []
-  for ([a,b] of ex) [arr[a],arr[b]]=[arr[b],arr[a]] 
+  for (let [a,b] of ex) [arr[a],arr[b]]=[arr[b],arr[a]] 
   return arr;
 };
 

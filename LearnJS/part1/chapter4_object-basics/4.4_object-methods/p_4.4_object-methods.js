@@ -18,6 +18,7 @@ subObj.getTitle = obj.getTitle;
 // subObj.getTitle()
 
 
+// Все задачи ниже взяты из https://github.com/andrewborisov/javascript-practice/tree/master/objects/exercises
 // Task 2
 /**
   * Описание задачи: Напишите функцию, которая проверяет, является ли элемент именно простым объектом, а не массивом, null и т.п.
@@ -119,12 +120,8 @@ const isEmpty = (object) => {
   if (!Object.keys(object).length) {
     return true
   }
-  return !Object.keys(object).filter(k => object[k] || object[k] === false || object[k] === 0).length   // не очень понимаю булево условие
+  return !Object.keys(object).filter(k => object[k] || object[k] === false || object[k] === 0).length                   // не очень понимаю булево условие
 };
-
-// const isEmpty = (object) => {
-//   return Object.values(object) == false;
-// };
 
 const data3 = { a: undefined, b: 1 };
 const data4 = { a: undefined };
@@ -142,8 +139,15 @@ const data4 = { a: undefined };
   * @returns {boolean}
 */
 
-const isEqual = (firstObject, secondObject) => {
-  
+// const isEqual = (firstObj, secondObj) => {
+//   if (Object.keys(firstObj).length !== Object.keys(secondObj).length) {
+//     return false;
+//   }
+//   return !Object.keys(firstObj).filter(k => firstObj[k] !== secondObj[k]).length                                     // не проверяет очередность ключей
+// };
+
+const isEqual = (firstObj, secondObj) => {
+  return Object.entries(firstObj).join() === Object.entries(secondObj).join()                                        // проверяет очередность ключей
 };
 
 const data5 = { a: 1, b: 1 };
@@ -153,7 +157,7 @@ const data7 = { a: 1, b: 2 };
 // console.log(isEqual(data5, data7)); // false
 
 
-// Task 7
+// Task 7 - не выполнил, оставляю до прототипов
 /**
   * Описание задачи: Напишите функцию, которая вызывает метод массива на заданный путь объекта.
   * Ожидаемый результат: ({ a: { b: [1, 2, 3] } }, 'a.b', splice, [1, 2]) => [2, 3]
@@ -173,7 +177,7 @@ const data8 = { a: { b: [1, 2, 3] } }
 // console.log(invoke(data8, 'a.b', 'splice', [1, 2])); // [2, 3]
 
 
-// Task 8
+// Task 8 - не выполнил, оставляю до рекурсии
 /**
   * Описание задачи: Напишите функцию, которая делает глубокую проверку на пустоту объекта.
   * Пустые значения: '', null, NaN, undefined, [], {}
@@ -195,7 +199,7 @@ const data10 = { a: { b: 1 } };
 // console.log(isEmptyDeep(data10)); // false
 
 
-// Task 9 
+// Task 9 - не выполнил, оставляю до рекурсии
 /**
   * Описание задачи: Напишите функцию, которая делает глубокое сравнение объектов.
   * Ожидаемый результат: True если объекты идентичны ({ a: 1, b: { c: 1 } }, { a: 1, b: { c: 1 } }) => true
@@ -213,7 +217,7 @@ const data13 = { a: 1, b: { c: 2 } };
 // console.log(isEqualDeep(data11, data13)); // false
 
 
-// Task 10
+// Task 10 решено только в лоб.
 /**
   * Описание задачи: Напишите функцию, которая поверхностно находит пересечения объектов и возвращает объект пересечений.
   * Ожидаемый результат: ({ a: 1, b: 2 }, { c: 1, b: 2 }) => { b: 2 }
@@ -223,15 +227,26 @@ const data13 = { a: 1, b: { c: 2 } };
 */
 
 const intersection = (firstObject, secondObject) => {
-  
+  const matches = {};
+  for (const [key1, value1] of Object.entries(firstObject)) {
+    for (const [key2, value2] of Object.entries(secondObject)) {
+      if (key1 === key2 && value1 === value2) {
+        matches[key1] = value1;
+      }
+    }
+  }
+  return matches;
 };
+
+// const intersection = (firstObject, secondObject) => {
+// };
 
 const data14 = { a: 1, b: 2 };
 const data15 = { c: 1, b: 2 };
 // console.log(intersection(data14, data15)); // { b: 2 }
 
 
-// Task 11
+// Task 11 не выполнил, оставляю до рекурсии
 /**
   * Описание задачи: Напишите функцию, которая глубоко находит пересечения объектов и возвращает объект пересечений.
   * Ожидаемый результат: ({ a: 1, b: { c: 3 } }, { c: 1, b: { c: 3 } }) => { b: { c: 3 } }

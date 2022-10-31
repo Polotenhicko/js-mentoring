@@ -17,7 +17,7 @@ console.log(example == example2)      // Output: true
 console.log(Symbol.keyFor(example))   // Output: bomb
 console.log(Symbol.keyFor(id1))       // Output: undefined (локальный)
 
-// Символ не может неявно преобразоваться, только явно - выводится `Symbol(id)`, но можно обратиться к описанию:
+// Символ не может неявно преобразовать свой тип, только явно - выводится `Symbol(id)`, но можно обратиться к описанию:
 console.log(id1.description)
 
 // Для вшивания символа в объект используется динамическое именование св-ва:
