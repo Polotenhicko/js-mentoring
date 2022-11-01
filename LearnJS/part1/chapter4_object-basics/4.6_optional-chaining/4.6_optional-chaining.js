@@ -14,6 +14,6 @@ user.admin.method?.()
 // При удалении
 delete user?.name;    // (удалить имя, если существует)
 
-// НО! Записывать с таким синтаксисом нельзя
+// НО! Перезаписывать с таким синтаксисом нельзя
 user?.name = 'error'  // err - Invalid left-hand side in assignment
 
