@@ -3,7 +3,7 @@
 const obj = {
   title: 'main obj',
   getTitle() {
-    subGetTitle = () => {
+    const subGetTitle = () => {
       console.log(this.title)
     };
     subGetTitle()

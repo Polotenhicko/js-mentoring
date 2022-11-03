@@ -57,15 +57,15 @@ console.log(parseInt('12.3'));          // Output: 12
 console.log(parseFloat('12.3.4'));      // Output: 12.3
 
 // В Js встроен объект Math, который содержит различные математические функции и константы
-console.log(Math.pow(5, 2))             // Output: 25
-console.log(Math.random())              // Output: 0.927230064996803
-console.log(Math.max(1, 2, 3, 4, 5))    // Output: 5
+console.log(Math.pow(5, 2));             // Output: 25
+console.log(Math.random());              // Output: 0.927230064996803
+console.log(Math.max(1, 2, 3, 4, 5));    // Output: 5
 
 // Task 1
 // Создайте скрипт, который запрашивает ввод двух чисел (используйте prompt) и после показывает их сумму.
 const num1 = '5';
 const num2 = '6';
-console.log(+num1 + +num2)
+console.log(+num1 + +num2);
 
 // Task 2
 // Почему 6.35.toFixed(1) == 6.3? - потому, что 6.35 хранится как 6.34999999999999964473 и округляется вниз
@@ -96,11 +96,11 @@ function readNumber() {
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
-console.log(random(10, 20))
+console.log(random(10, 20));
 
 // Task 6
 // Напишите функцию randomInteger(min, max), которая генерирует случайное целое (integer) число от min до max (включительно).
 function randomInteger(min, max) {
   return Math.trunc(Math.random() * (max + 0.5 - min + 0.5) + min - 0.5);
 }
-console.log(randomInteger(1, 3))
+console.log(randomInteger(1, 3));
