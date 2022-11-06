@@ -36,7 +36,7 @@ console.log( 'Interface'.toUpperCase() );   // Output: INTERFACE
 console.log( 'Interface'.toLowerCase() );   // Output: interface
 
 
-// --- поиск/проверка индекса ---
+// === поиск/проверка индекса ===
 // Можно искать индекс конкретного порядка символов в строке - `str.indexOf(substr, pos)` - substr - что искать, pos - начиная с какого индекса
   // Возвращает -1 если нет совпадений, либо индекс первой буквы найденной подстроки
   let str = 'Widget with id';
@@ -59,7 +59,7 @@ console.log( 'My dick'.endsWith('y dick') );
 
 
 
-// --- извлечение подстроки ---
+// === извлечение подстроки ===
 // `str.slice(start [, end])` - возвращает часть строки от start до (не включая) end. (-1 считает с конца)
 console.log('deep end'.slice(3, 7));  // Output: 'p en'
 console.log('esketit'.slice(0, -1));  // Output: 'esketi'
@@ -74,7 +74,7 @@ console.log('esketit'.substr(-5, 5));  // Output: 'ketit'
 
 
 
-// --- сравнение строк ---
+// === сравнение строк ===
 // Строки сравниваются посимвольно в порядке ascii (UTF-16)
   // Строчные больше заглавных
 console.log('a' > 'A');                   // Output: true
