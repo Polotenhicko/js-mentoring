@@ -11,6 +11,32 @@ const arr = ['yo', 'bitch', 'esketit', 'shot', 'flex'];
 console.log(typeof arr);   // Output: 'object'
 
 
+
+
+// Массив можно создать с помощью `[]` или `Array(length)` или `Array.from(var)` или `Array.of(...var)`
+const arrr = [1, 2, 3];
+function arrMakingOf(...primitives) {
+  return Array.of(primitives)
+}
+console.log(arrr);                                              // Output: [ 1, 2, 3 ]
+console.log(Array(5));                                          // Output: [ <5 empty items> ]
+console.log(arrMakingOf(10, 20, 30, 40, 50, 60));               // Output: [ 10, 20, 30, 40, 50, 60 ]
+console.log(Array.from( {
+    name: 'object',
+    [Symbol.iterator]() {
+      return {
+        current: 1,
+        last: 5,
+        next() {
+          return this.current <= this.last ? { done: false, value: this.current++ } : {done: true};
+        },
+      }
+    }
+}));                                          // Output: [ 1, 2, 3, 4, 5 ]   - преобразовал итерируемый объект в массив (еще может преобразовать псевдомассив)
+
+
+
+
 // У массива есть метод для преобразования в примитив - только toString()
 console.log(String(arr));       // Output: 'yo,bitch,esketit,shot,flex'
 
@@ -59,7 +85,7 @@ console.log(arr.unshift('-unshifted1-', '-unshifted2-'), arr);      // Output: 1
 
 // === перебор эл-тов ===
 
-// Для перебора массивов стоит использовать только `for...of`
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Для перебора массивов стоит использовать только `for...of` !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // `for` пойдет, но он старый, а `for...in` гораздо медленнее (10-100 раз)
 
 // Цикл for..of не дает доступа к индексу, только к значению
