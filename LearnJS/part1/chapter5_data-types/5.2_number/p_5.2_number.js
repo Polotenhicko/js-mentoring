@@ -4,12 +4,12 @@
 
 // Task 1
 // Возведите 2 в 10 степень.
-// console.log(Math.pow(2, 10));   // Output: 1024
+console.log(Math.pow(2, 10));   // Output: 1024
 
 
 // Task 2
 // Найдите квадратный корень из 245.
-// console.log(Math.pow(245, 1/2)) // Output: 15.652475842498529
+console.log(Math.pow(245, 1/2)) // Output: 15.652475842498529
 
 
 // Task 3
@@ -20,14 +20,14 @@ let sum = 0;
 for (let i in arr) {
   sum += arr[i];
 }
-// console.log(Math.pow(sum, 1/2))   // Output: 7.280109889280518
+console.log(Math.pow(sum, 1/2))   // Output: 7.280109889280518
 
 
 // Task 4
 // Найдите квадратный корень из 379. Результат округлите до целых, до десятых, до сотых.
-// console.log( Math.round( Math.pow(379, 1/2) ) );  // Output: 19
-// console.log( Math.pow(379, 1/2).toFixed(1) );     // Output: 19.5
-// console.log( Math.pow(379, 1/2).toFixed(2) );     // Output: 19.47
+console.log( Math.round( Math.pow(379, 1/2) ) );  // Output: 19
+console.log( Math.pow(379, 1/2).toFixed(1) );     // Output: 19.5
+console.log( Math.pow(379, 1/2).toFixed(2) );     // Output: 19.47
 
 
 // Task 5
@@ -36,13 +36,13 @@ const obj = {
   floor: Math.floor( Math.pow(387, 1/2) ),
   ceil: Math.ceil( Math.pow(387, 1/2) ),
 }
-// console.log(obj);   // Output: { floor: 19, ceil: 20 }
+console.log(obj);   // Output: { floor: 19, ceil: 20 }
 
 
 // Task 6
 // Даны числа 4, -2, 5, 19, -130, 0, 10. Найдите минимальное и максимальное число.
-// console.log( Math.min(4, -2, 5, 19, -130, 0, 10) );   // Output: -130
-// console.log( Math.max(4, -2, 5, 19, -130, 0, 10) );   // Output: 19
+console.log( Math.min(4, -2, 5, 19, -130, 0, 10) );   // Output: -130
+console.log( Math.max(4, -2, 5, 19, -130, 0, 10) );   // Output: 19
 
 // Task 7
 // Выведите на экран случайное целое число от 1 до 100.
