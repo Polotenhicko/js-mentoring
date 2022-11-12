@@ -1,21 +1,22 @@
 // https://learn.javascript.ru/array-methods
 const log = console.log;
 
-/* 
- *    меняют оригинал    | не меняют оригинал
- * 
- * `.splice()`           | `.concat()`
- * `.copyWithin()`       | `.slice()`
- * `` | `.forEach()`
- * `` | ``
- * `` | ``
- * `` | ``
- * 
-*/
 
 // Чтобы отличить массив от объекта, его проверяют `Array.isArray(value)`
 const arr1 = [0, 1, 2, 3, 4, 5];
 log(Array.isArray(arr1));
+console.log('hello')
+/*
+ *   меняют оригинал    |   не меняют оригинал
+ *
+ * `.splice()`          |   `.concat()`
+ * `.copyWithin()`      |   `.slice()`
+ * `.reverse()          |   `.forEach()`
+ * `.sort()`            |   `.map()`
+ * `.fill()`            |   `.flat()`
+ *                      |   `.filter()`
+ *
+*/
 
 
 // === Методы добавления/удаления эл-тов === (элементарные в предыдущей главе)
@@ -25,8 +26,8 @@ log(arr1.splice(-2, 4), arr1);          // Output: [ 4, 5 ]    [ 0, 1, 2, 3 ]
 
 
 // `.slice(start, end?)` - создает новый массив из эл-тов от start до end. Отрицательные индексы можно.
-  // Часто используют без аргументов, чтобы создать копию массива
-const arr2 = [0, 1, 2, 3, 4, 5];
+// Часто используют без аргументов, чтобы создать копию массива
+const arr2 = [0, 1, 2, 3,4, 5];
 log(arr2.slice(-3, 5), arr2);          // Output: [ 3, 4 ]     [ 0, 1, 2, 3, 4, 5 ]
 
 
@@ -116,7 +117,7 @@ log(arr3.reverse());                                // Output: [ 5, 2, 2, 1, 1, 
 log(arr3.join());                                   // Output: '5,2,2,1,1,0'
 
 // `.split(delim, maxSize?)` - Создает массив с размером до maxSize из эл-тов строки, разделенных delim
-const string1 = 'example string, bitch'
+const string1 = 'example string, boba'
 log(string1.split(','));                               // Output: [ 'example string, bitch' ]
 
 
@@ -149,24 +150,31 @@ log(arr3.fill(3, 1, 3));         // Output: [ 0, 1, 2, 1, 2, 5 ]
 
 // Task 1
 // Напишите функцию camelize(str), которая преобразует строки вида «my-short-string» в «myShortString».
-function camelize() {
-
+function camelize(str) {
+  return str
+      .split('-')
+      .map(
+          (word, i) => i
+              ? word[0].toUpperCase() + word.split('').splice(1, word.length).join('')
+              : word
+      )
+      .join('');
 }
-log(camelize("list-style-image"));
+// log(camelize("list-style-image"));    // Output: 'listStyleImage'
 
 // Task 2
 // Напишите функцию filterRange(arr, a, b), которая принимает массив arr, ищет элементы со значениями больше или равными a и меньше или равными b
 // и возвращает результат в виде массива.
   // Функция должна возвращать новый массив и не изменять исходный.
 const arr5 = [5, 3, 8, 1];
-function filterRange() {
-  
+function filterRange(arr, a, b) {
+  return arr.filter(n => n >= a && n <= b);
 }
 const filtered = filterRange(arr5, 1, 4);
 
-log( filtered ); // 3,1 (совпадающие значения)
+// log( filtered ); // 3,1 (совпадающие значения)
 
-log( arr5 ); // 5,3,8,1 (без изменений)
+// log( arr5 ); // 5,3,8,1 (без изменений)
 
 
 // Task 3
@@ -174,51 +182,174 @@ log( arr5 ); // 5,3,8,1 (без изменений)
 // которые находятся между a и b. То есть, проверка имеет вид a ≤ arr[i] ≤ b.
   // Функция должна изменять принимаемый массив и ничего не возвращать.
 const arr6 = [5, 3, 8, 1];
-function filterRangeInPlace() {
-  
+function filterRangeInPlace(arr, a, b) {
+  const filtered = arr.filter(n => n >= a && n <= b);
+  arr.length = 0;
+  arr.push( ...filtered );
 }
 filterRangeInPlace(arr6, 1, 4); // удалены числа вне диапазона 1..4
 
-log( arr6 ); // [3, 1]
-
+// log( arr6 ); // [3, 1]
 
 // Task 4
 // Сортировать в порядке по убыванию
 const arr7 = [5, 2, 1, -10, 8];
-// ... ваш код для сортировки по убыванию
-log( arr7 ); // 8, 5, 2, 1, -10
+arr7.copyWithin(0, arr7.sort((a, b) => b - a));
+// log( arr7 ); // 8, 5, 2, 1, -10
 
 // Task 5
 // У нас есть массив строк arr. Нужно получить отсортированную копию, но оставить arr неизменённым.
 // Создайте функцию copySorted(arr), которая будет возвращать такую копию.
 const arr8 = ["HTML", "JavaScript", "CSS"];
-function copySorted() {
-  
+function copySorted(arr) {
+  return arr.slice().sort();
 }
 const sorted = copySorted(arr8);
-log( sorted ); // CSS, HTML, JavaScript
-log( arr8 ); // HTML, JavaScript, CSS (без изменений)
+// log( sorted ); // CSS, HTML, JavaScript
+// log( arr8 ); // HTML, JavaScript, CSS (без изменений)
 
 // Task 6
-log()
+// Создайте функцию конструктор Calculator, которая создаёт «расширяемые» объекты калькулятора.
+//    1) реализуйте метод calculate(str), который принимает строку типа "1 + 2"
+//    в формате «ЧИСЛО оператор ЧИСЛО» (разделено пробелами) и возвращает результат.
+//    Метод должен понимать плюс + и минус -.
+//    2) Затем добавьте метод addMethod(name, func), который добавляет в калькулятор новые операции.
+//    Он принимает оператор name и функцию с двумя аргументами func(a,b), которая описывает его.
+
+function Calculator() {
+  this['+'] = (a, b) => a + b;
+  this.calculate = function (str) {
+    arr = str.split(' ');
+    return this[arr[1]](+arr[0], +arr[2]);
+  };
+  this.addMethod = function(name, func) {
+    this[name] = func;
+  }
+}
+let powerCalc = new Calculator;
+powerCalc.addMethod("*", (a, b) => a * b);
+powerCalc.addMethod("/", (a, b) => a / b);
+powerCalc.addMethod("**", (a, b) => a ** b);
+
+// log( powerCalc.calculate("2 ** 3") ); // 8
+// log(powerCalc.calculate('3 + 7')) // 10
+
 
 // Task 7
-log()
+// У вас есть массив объектов user, и в каждом из них есть user.name. Напишите код, который преобразует их в массив имён.
+let vasya = { name: "Вася", age: 25 };
+let petya = { name: "Петя", age: 30 };
+let masha = { name: "Маша", age: 28 };
+let users = [ vasya, petya, masha ];
 
-// Task 8
-log()
+let names = users.map( user => user.name );
+// log( names ); // Вася, Петя, Маша
 
-// Task 9
-log()
+// // Task 8
+// У вас есть массив объектов user, и у каждого из объектов есть name, surname и id.
+// Напишите код, который создаст ещё один массив объектов с параметрами id и fullName, где fullName – состоит из name и surname.
+let vasya2 = { name: "Вася", surname: "Пупкин", id: 1 };
+let petya2 = { name: "Петя", surname: "Иванов", id: 2 };
+let masha2 = { name: "Маша", surname: "Петрова", id: 3 };
+let users2 = [ vasya2, petya2, masha2 ];
 
-// Task 10
-log()
+let usersMapped = users2.map(user => {
+  return {
+      fullName: `${user.name} ${user.surname}`, id: user.id
+  };
+})
+
+    /*
+    usersMapped = [
+      { fullName: "Вася Пупкин", id: 1 },
+      { fullName: "Петя Иванов", id: 2 },
+      { fullName: "Маша Петрова", id: 3 }
+    ]
+    */
+
+// log( usersMapped[0].id ); // 1
+// log( usersMapped[0].fullName ); // Вася Пупкин
+// log( usersMapped );
+/* Output: [
+  { fullName: "Вася Пупкин", id: 1 },
+  { fullName: "Петя Иванов", id: 2 },
+  { fullName: "Маша Петрова", id: 3 }
+]
+*/
+
+
+
+// // Task 9
+// Напишите функцию sortByAge(users), которая принимает массив объектов со свойством age и сортирует их по нему.
+let vasya3 = { name: "Вася", age: 25 };
+let petya3 = { name: "Петя", age: 30 };
+let masha3 = { name: "Маша", age: 28 };
+let arr9 = [ vasya3, petya3, masha3 ];
+
+(function sortByAge(arr) {
+  arr.sort((a, b) => a.age - b.age)
+}(arr9));
+
+// теперь: [vasya, masha, petya]
+// log(arr9)
+// log(arr9.map(user => user.name)); // [ 'Вася', 'Маша', 'Петя' ]
+
+
+
+// // Task 10
+// Напишите функцию shuffle(array), которая перемешивает (переупорядочивает случайным образом) элементы массива.
+// Многократные прогоны через shuffle могут привести к разным последовательностям элементов.
+let arr10 = [1, 2, 3];
+
+const shuffle = (arr) => {
+  return arr.sort( () => Math.floor((Math.random() * (arr.length) - 1)) );
+};
+
+// log(shuffle(arr10)); // arr = [3, 2, 1]
+// log(shuffle(arr10)); // arr = [2, 1, 3]
+// log(shuffle(arr10)); // arr = [3, 1, 2]
+
+
 
 // Task 11
-log()
+// Напишите функцию getAverageAge(users), которая принимает массив объектов со свойством age и возвращает средний возраст.
+// Формула вычисления среднего арифметического значения: (age1 + age2 + ... + ageN) / N.
+let vasya4 = { name: "Вася", age: 25 };
+let petya4 = { name: "Петя", age: 30 };
+let masha4 = { name: "Маша", age: 29 };
+let arr11 = [ vasya4, petya4, masha4 ];
+const getAverageAge = (arr) => {
+  return arr.reduce((sum, e) => sum + e.age, 0) / arr11.length
+}
+// log( getAverageAge(arr11) ); // (25 + 30 + 29) / 3 = 28
 
 // Task 12
-log()
+// Пусть arr – массив строк.
+// Напишите функцию unique(arr), которая возвращает массив, содержащий только уникальные элементы arr.
+const unique = (arr) => {
+  return arr.filter(unic => arr.filter(el => el === unic).length <= 1)
+}
+let strings = [ "кришна", "кришна", "харе", "харе", "харе", "харе", "кришна", "кришна", ":-O" ];
+log(unique(strings));
 
 // Task 13
-log()
+// Допустим, мы получили массив пользователей в виде {id:..., name:..., age:... }.
+// Создайте функцию groupById(arr), которая создаст из него объект с id в качестве ключа и элементами массива в качестве значений.
+// Используйте метод .reduce в решении.
+let users5 = [
+  {id: 'john', name: "John Smith", age: 20},
+  {id: 'ann', name: "Ann Smith", age: 24},
+  {id: 'pete', name: "Pete Peterson", age: 31},
+];
+const groupById = function (arr) {
+  const usersObj = {}
+  arr.forEach(user => usersObj[user.id] = user)
+  return usersObj
+};
+let usersById = groupById(users5);
+// log(usersById);
+/* {
+  john: {id: 'john', name: "John Smith", age: 20},
+  ann: {id: 'ann', name: "Ann Smith", age: 24},
+  pete: {id: 'pete', name: "Pete Peterson", age: 31},
+} */

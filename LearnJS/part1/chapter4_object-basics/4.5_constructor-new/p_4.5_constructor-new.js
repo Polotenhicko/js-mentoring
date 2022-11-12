@@ -42,7 +42,7 @@ function Check() {
 
   // Если есть промокод, передавайте его в метод при вызове
   this.getCheck = function(code) {
-    const totalPrice = this.items.map(i => i = i.price).reduce((sum, e) => sum + e)
+    const totalPrice = this.items.map(i => i.price).reduce((sum, e) => sum + e)
     let discount = 0;
     if (code === 'WINTER20') discount = 20;
     if (code === 'EMPLOYEE50') discount = 50;
@@ -50,13 +50,13 @@ function Check() {
 
     for (let i = 0; i < this.items.length; i++) {
       console.log(`${i + 1}. ${this.items[i].price.toFixed(2)}$ - ${this.items[i].name} (${this.items[i].count})`);
-    };
+    }
     console.log(`Discount: ${discount}%`);
     if (discount) {
       console.log(`Total price: ${totalPrice.toFixed(2)}$ => ${(totalPrice - totalPrice / 100 * discount).toFixed(2)}$`);
     } else {
       console.log(`Total price: ${totalPrice.toFixed(2)}$`);
-    };
+    }
     return this;
   };
 }
@@ -75,7 +75,13 @@ function Check() {
 
 
 const check = new Check()
-check.addItem(milk).addItem(bread).addItem(potatoes).addItem(cheese).deleteItem(2).addItem(cheese).getCheck('WINTER20')
+check.addItem(milk)
+    .addItem(bread)
+    .addItem(potatoes)
+    .addItem(cheese)
+    .deleteItem(2)
+    .addItem(cheese)
+    .getCheck('WINTER20')
 
 
 
@@ -83,8 +89,8 @@ check.addItem(milk).addItem(bread).addItem(potatoes).addItem(cheese).deleteItem(
 
 // Task 2
 // Тестануть new.target
-function test() {
-  console.log(new.target)
-}
-test()
-new test()
+// function test() {
+//   console.log(new.target)
+// }
+// test()
+// new test()
