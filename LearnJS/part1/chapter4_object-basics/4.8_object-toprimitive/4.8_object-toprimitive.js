@@ -8,13 +8,11 @@
  * obj.valueOf()                 - obj => number
 */
 // Не существует логического(булевого) преобразования для объектов - все объекты true
-// Также все методы по желанию могут возвращать любой примитивный тип (объект игнорируется)
 
 // Хинты - подсказки, вшитые в операторы-конвертеры типов. Подсказывают методу `Symbol.toPrimitive` приоритет выполнения методов преобразования для объекта. 
   // Спецификация - https://tc39.github.io/ecma262/#sec-toprimitive
 
-
-// Когда требуется автоматически преобразовать объект в символ, вызывается метод с символьным ключом `obj[Symbol.toPrimitive](hint) {}`
+// Когда требуется преобразовать объект в примитив, у этого объекта вызывается метод с символьным ключом `obj[Symbol.toPrimitive](hint) {}`
   // в этом методе в зависимости от хинта объекта вызывается определенный метод преобразования
     // приоритет хинтов: string => number => default(number => string)
   // если метод не находится, то вызывается `obj.toString()` и `obj.valueOf()`. Если последний отсутствует, `.toString()` становится универсальным
@@ -26,7 +24,7 @@ const user = {
     return hint === 'string' ? 'name: ' + this.name : this.money
   }
 };
-console.log(String(user))   // Output: 'hint: string =>' 'name: Jhon'
+console.log(String(user))   // Output: 'hint: string =>' 'name: John'
 console.log(+user)          // Output: 'hint: number =>' 10000
 console.log(user + '')      // Output: 'hint: default =>' '10000'
 

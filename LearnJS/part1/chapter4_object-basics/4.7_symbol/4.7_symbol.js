@@ -3,6 +3,11 @@
 // Символ это уникальный идентификатор, который выполняет функции свойства объекта, только скрыт от обращения и перезаписи ( искл. `Object.assign()` )
 // Создается с помощью Symbol('description')
 
+// Символ не может быть неявно преобразован
+console.log(String(Symbol('example')))    // Output: 'Symbol(example)'
+// console.log( '' + Symbol('example'))             // Output: TypeError: Cannot convert a Symbol value to a string
+
+
 // Все символы уникальны
 let id1 = Symbol('id');
 let id2 = Symbol('id');

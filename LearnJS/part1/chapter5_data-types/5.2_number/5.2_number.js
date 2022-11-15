@@ -10,7 +10,7 @@ console.log(isNaN(NaN));            // Output: true
 // Методы `Number.isNaN()` и `Number.isFinite()` - выполняют ту же функцию, но не преобразуют значение в число перед этим.
 
 // Потеря точности - в js дробные числа имеют погрешность, из-за того, что их трудно записать формате IEEE-754(в двоичной системе).
-console.log(0.2 + 0.1 == 0.3);          // Output: false
+console.log(0.2 + 0.1 === 0.3);          // Output: false
 console.log((0.2 + 0.1).toFixed(20));   // Output: 0.30000000000000004441
 
 // формат IEEE-754 - это 64 бита на число - 11 бит хранят позицию десятичной точки и 1 бит – знак, остальные 52 бита - цифра.
@@ -77,7 +77,7 @@ console.log(1.35.toFixed(1));   // Output: 1.4, тк
 
 // Task 3
 function readNumber() {
-  const num = prompt('enter number', '');
+  let num = prompt('enter number', '');
   do {
     num = prompt('enter number', '');
     if (num === null && num === '') {
