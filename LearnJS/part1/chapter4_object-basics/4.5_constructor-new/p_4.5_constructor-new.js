@@ -1,11 +1,5 @@
 'use strict'
 
-
-// (!) 
-// Долг (4.5). Глубже про new - почему работает со стрелочными функциями, если у них нет контекста?
-// (!) 
-
-
 // Task 1
 // Задача на конструктор заказа:
 // Создайте функцию-конструктор GroceryBasket(), создающую const-объекты, с методами addItem(), deleteItem(), getCheck(). 
@@ -74,14 +68,14 @@ function Check() {
 */
 
 
-const check = new Check()
+const check = new Check();
 check.addItem(milk)
     .addItem(bread)
     .addItem(potatoes)
     .addItem(cheese)
     .deleteItem(2)
     .addItem(cheese)
-    .getCheck('WINTER20')
+    .getCheck('WINTER20');
 
 
 
@@ -92,5 +86,5 @@ check.addItem(milk)
 // function test() {
 //   console.log(new.target)
 // }
-// test()
-// new test()
+// test();
+// new test();

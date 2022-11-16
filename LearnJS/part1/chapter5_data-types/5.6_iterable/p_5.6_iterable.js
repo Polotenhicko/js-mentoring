@@ -35,4 +35,5 @@ console.log(                                            // Output: [ 'hello', "i
   Array
       .from(pseudoArr, e => pseudoArr[e])
       .filter(e => typeof e === 'string')
+      .join(' ')
 );

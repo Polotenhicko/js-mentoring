@@ -13,6 +13,8 @@
 // https://medium.com/@sergeybulavyk/преобразование-типов-в-javascript-35a15ddfc333
 // -------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
 // === теория ===
 // За преобразование объекта в примитив отвечают несколько вшитых в прототип объекта методов - `toString()`, `valueOf()` и `[Symbol.toPrimitive]`.
 // При любом преобразовании кроме прямого обращения к `toString()` и `valueOf()` вызывается `[Symbol.toPrimitive]`,
@@ -28,6 +30,24 @@
 // Самое важное - Когда хинт попадает в [Symbol.toPrimitive], вызывается соотв. метод и начинается проверка - возвращает ли метод примитив,
   // если нет, то вызывает второй метод
   // хинт default тут ведет себя также как number
+
+// --- пример для того, чтобы разобраться ---
+const user = {
+  name: 'John',
+  money: 10000,
+  [Symbol.toPrimitive](hint) {
+    console.log('hint:', hint, '=>' );
+    return hint === 'string' ? 'name: ' + this.name : this.money
+  }
+};
+// console.log(String(user))   // Output: 'hint: string =>' 'name: John'
+// console.log(+user)          // Output: 'hint: number =>' 10000
+// console.log(user + '')      // Output: 'hint: default =>' '10000'
+// Если ответственный за преобразование метод не сможет вернуть примитив (или метода нет), то вызовется второй метод.
+// default сначала проверяет можно ли выдать число, если нет, выдает строку
+
+// ps Методы могут вернуть любой тип, но не объект
+
 
 // === план ===
 
@@ -60,22 +80,7 @@ const worldPop = russiaPop + chinaPop + americaPop        // какого хуя
 console.log(worldPop)                                     // потому что через default прогоняется в стринг
 
 
-// --- пример для того, чтобы разобраться ---
-const user = {
-  name: 'John',
-  money: 10000,
-  [Symbol.toPrimitive](hint) {
-    console.log('hint:', hint, '=>' );
-    return hint === 'string' ? 'name: ' + this.name : this.money
-  }
-};
-// console.log(String(user))   // Output: 'hint: string =>' 'name: John'
-// console.log(+user)          // Output: 'hint: number =>' 10000
-// console.log(user + '')      // Output: 'hint: default =>' '10000'
-// Если ответственный за преобразование метод не сможет вернуть примитив (или метода нет), то вызовется второй метод.
-// default сначала проверяет можно ли выдать число, если нет, выдает строку
 
-// ps Методы могут вернуть любой тип, но не объект
 
 const fooo = {
   toString: function () {

@@ -1,8 +1,4 @@
-// (!) 
-// (!) Долг (4.4). Поиграться с .bind(), например вызвать несколько раз подряд (https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Operators/this)
-// (!) 
-
-// Task 1 
+// Task 1
 // Создать объект, в котором будет метод с вложенной функией, которая будет ссылаться на имя объекта. Далее скопировать метод в другой объект, чтобы работало.
 const obj = {
   title: 'main obj',
@@ -266,3 +262,29 @@ const intersectionDeep = (firstObject, secondObject) => {
 const data16 = { a: 1, b: { c: 3 } };
 const data17 = { c: 1, b: { c: 3 } };
 // console.log(intersectionDeep(data16, data17)); // { b: { c: 3 } }
+
+
+// Долг (4.4). Поиграться с .bind(), например вызвать несколько раз подряд (https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Operators/this)
+const objCustom = { name: 'custom' };
+const objCustom2 = { name: 'custom2' };
+
+function whatThis() {
+  return this.name;
+}
+
+console.log( whatThis() );                                                       // Output: undefined
+console.log( whatThis.bind(objCustom)() );                                       // Output: 'custom'
+console.log( whatThis.bind( { name: 'aboba' } )() );                      // Output: 'aboba'
+console.log( whatThis.bind(objCustom).bind(objCustom2)() );                      // Output: 'custom'
+// console.log( whatThis.bind(objCustom)().bind(objCustom2) );                   // Output: err
+console.log( whatThis.apply(objCustom) );                                        // Output: 'custom'
+// console.log( whatThis.apply(objCustom).apply(objCustom2) );                   // Output: err
+console.log( whatThis.bind(objCustom).apply(objCustom2) );                       // Output: 'custom'
+// console.log( whatThis.apply(objCustom).bind(objCustom2));                     // Output: err
+console.log( whatThis.bind(objCustom).call(objCustom2));                         // Output: 'custom'
+// console.log( whatThis.call(objCustom).bind(objCustom2));                      // Output: err
+// console.log( whatThis.apply(objCustom).call(objCustom2));                     // Output: err
+// console.log( whatThis.call(objCustom).apply(objCustom2));                     // Output: err
+
+
+

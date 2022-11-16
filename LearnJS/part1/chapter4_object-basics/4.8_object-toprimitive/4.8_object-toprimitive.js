@@ -1,7 +1,7 @@
 // https://learn.javascript.ru/object-toprimitive
 
 /* 
- * Методы преобразования объектов (логика описывается в объекте)
+ * Методы преобразования объектов
  * 
  * obj[Symbol.toPrimitive](hint) - объединяет методы ниже
  * obj.toString()                - obj => string
@@ -12,10 +12,24 @@
 // Хинты - подсказки, вшитые в операторы-конвертеры типов. Подсказывают методу `Symbol.toPrimitive` приоритет выполнения методов преобразования для объекта. 
   // Спецификация - https://tc39.github.io/ecma262/#sec-toprimitive
 
-// Когда требуется преобразовать объект в примитив, у этого объекта вызывается метод с символьным ключом `obj[Symbol.toPrimitive](hint) {}`
-  // в этом методе в зависимости от хинта объекта вызывается определенный метод преобразования
-    // приоритет хинтов: string => number => default(number => string)
-  // если метод не находится, то вызывается `obj.toString()` и `obj.valueOf()`. Если последний отсутствует, `.toString()` становится универсальным
+// При любом преобразовании кроме прямого обращения к `toString()` и `valueOf()` вызывается `[Symbol.toPrimitive]`,
+  // который по хинту определяет какой метод из предыдущих вызвать.
+
+// Хинты это аргумент, который принимает метод `[Symbol.toPrimitive](hint) {} для выбора трансформирующего метода
+  // то, какой хинт будет отправлен, зависит от операции, выполняющей преобразование:
+  /*
+  * String  -> `String()`, `alert(value)` - операции, вызывающие хинт (тк возвращают очевидно строку)
+  * Number  -> `/`, `*`, `**` - все операторы, работающие с цифрами кроме `+` и `==`. Также `Number()` и `+унарный`
+  * Default -> `бинарный +` и `==` - операции, вызывающие хинт (тк не ясно конкретно какой тип возвращают - строку или число)
+  */
+// Булевого преобразования для объектов НЕТ - все объекты true
+
+// Самое важное - Когда хинт попадает в [Symbol.toPrimitive], вызывается соотв. метод и начинается проверка - возвращает ли метод примитив,
+  // если нет, то вызывает второй метод
+  // хинт default тут ведет себя также как number
+
+// По умолчанию `toString()` и `valueOf()` возвращают '[object Object]' и this соответственно (то есть valueOf никогда не возвращается, если приведение через [Symbol.toPrimitive])
+
 const user = {
   name: 'John',
   money: 10000,
@@ -27,13 +41,52 @@ const user = {
 console.log(String(user))   // Output: 'hint: string =>' 'name: John'
 console.log(+user)          // Output: 'hint: number =>' 10000
 console.log(user + '')      // Output: 'hint: default =>' '10000'
+// ps Методы могут вернуть любой тип, но опять же - объект отфильтруется в [Symbol.toPrimitive]
 
+// Для производительности всегда старайтесь вызывать методы преобразования типов напрямую, а не [Symbol.toPrimitive].
 
-// Методы `.toString()` и `.valueOf()` по умолчанию вшиты в объект, они возвращают "[object Object]" или сам объект соответственно
-  // Поэтому когда мы отображаем объект с преобразованием без измененных методов, он выводит "[object Object]" или себя
-const example = {
-  test: 'test1',
+// Упрощенная(для читаемости) логика методов преобразования в прототипе объекта
+  // toString() и valueOf - трансформируют, [Symbol.toPrimitive] - управляет с помощью hint и фильтрует не-примитивы
+
+const obj = {
+
+  valueOf() {
+    return this;
+  },
+
+  toString() {
+    return '[object Object]';
+  },
+
+  [Symbol.toPrimitive](hint) {
+
+    switch (hint) {
+      case 'string':
+        if (typeof this.toString() === 'object') {
+          return this.valueOf();
+        }
+        return this.toString();
+
+      case 'number':
+        if (typeof this.valueOf() === 'object') {
+          return this.toString();
+        }
+        return this.valueOf();
+
+      case 'default':
+        if (typeof this.valueOf() === 'object') {
+          return this.toString();
+        }
+        return this.valueOf();
+
+    }
+  },
 };
-console.log(example.toString());  // Output: "[object Object]"
-console.log(Number(example));     // Output: NaN
+
+
+console.log(+obj);         // NaN           <= same as   +obj[Symbol.toPrimitive]('number')
+
+console.log('' + obj);     // [obj Obj]     <= same as   '' + obj[Symbol.toPrimitive]('default')
+
+console.log(String(obj));  // [obj Obj]     <= same as   String( obj[Symbol.toPrimitive]('string') )
 

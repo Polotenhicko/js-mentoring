@@ -43,7 +43,7 @@ for (let key in obj) {
 const obj2 = Object.assign({}, obj);
 console.log(obj2[id1], obj2[id2])
 
-// НО! Существуют методы, чтобы достать символы: 
+// Cуществуют методы, чтобы достать символы:
 // Object.getOwnPropertySymbols(obj) - получить все свойствава-символы
 // Reflect.ownKeys(obj) - получить все св-ва, включая символы
 

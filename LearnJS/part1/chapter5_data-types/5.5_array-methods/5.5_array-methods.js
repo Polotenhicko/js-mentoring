@@ -15,7 +15,6 @@ console.log('hello')
  * `.sort()`            |   `.map()`
  * `.fill()`            |   `.flat()`
  *                      |   `.filter()`
- *
 */
 
 
@@ -342,12 +341,12 @@ let users5 = [
   {id: 'pete', name: "Pete Peterson", age: 31},
 ];
 const groupById = function (arr) {
-  const usersObj = {}
-  arr.forEach(user => usersObj[user.id] = user)
-  return usersObj
+  const obj = {}
+  users5.reduce((ac, e) => obj[e.id] = e, 0)
+  return obj;
 };
 let usersById = groupById(users5);
-// log(usersById);
+log(usersById);
 /* {
   john: {id: 'john', name: "John Smith", age: 20},
   ann: {id: 'ann', name: "Ann Smith", age: 24},

@@ -101,3 +101,16 @@ const accumulator = new Accumulator(1);
 accumulator.read(5);
 accumulator.read(3);
 console.log(accumulator.value);
+
+
+// Долг (4.5). Глубже про new - почему работает со стрелочными функциями, если у них нет контекста?
+
+const Test = () => {
+  return {};
+};
+
+// let ttt = new Test();
+
+// console.log(ttt);
+
+// втф, повторил выражение с QA буква-в-букву, у меня со стрелочными не работает. На QA работало

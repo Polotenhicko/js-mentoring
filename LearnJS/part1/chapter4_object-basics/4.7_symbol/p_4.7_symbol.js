@@ -1,6 +1,6 @@
 // Task 1
 // Создать глобальный и локальный символ, поместить в `obj1`, скопировать их в `obj2`, перезаписать значения всех символов в `obj2`.
-const symbol1 = Symbol.for('symbol1')
+const symbol1 = Symbol.for('symbol1');
 const symbol2 = Symbol('symbol2');
 
 const obj1 = {
