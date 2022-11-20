@@ -59,5 +59,36 @@ console.log(weakSetto.has(mary));       // Output: false
 // ---------------------------------------------------------------------------------------------------------------------
 
 // Task 1
+// Какую структуру данных вы могли бы использовать для ответа на вопрос «было ли сообщение прочитано?»
+  // P.S. Когда сообщение удаляется из массива messages, оно должно также исчезать из структуры данных.
+  // P.P.S. Нам не следует модифицировать сами объекты сообщений, добавлять туда свойства.
+let messages = [
+  {text: "Hello", from: "John"},
+  {text: "How goes?", from: "John"},
+  {text: "See you soon", from: "Alice"}
+];
+
+const messagesWeakSet = new WeakSet();
+
+messages.forEach(msg => messagesWeakSet.add(msg));
+console.log(messagesWeakSet.has(messages[0]));        // Output: true
+delete messages[0];
+console.log(messagesWeakSet.has(messages[0]));        // Output: false
+
 
 // Task 2
+// Какую структуру данных вы бы предложили использовать для хранения информации о том, когда сообщение было прочитано?
+// В предыдущем задании нам нужно было сохранить только факт прочтения «да или нет».
+// Теперь же нам нужно сохранить дату, и она должна исчезнуть из памяти при удалении «сборщиком мусора» сообщения
+let messages2 = [
+  { text: "Hello", from: "John" },
+  { text: "How goes?", from: "John" },
+  { text: "See you soon", from: "Alice" }
+];
+const messagesWeakMap = new WeakMap;
+
+messages2.forEach(msg => messagesWeakMap.set(msg, new Date().toLocaleTimeString()));
+
+console.log(messagesWeakMap.get(messages2[1]));        // Output: 08:30:07
+delete messages2[1];
+console.log(messagesWeakMap.get(messages2[1]));        // Output: undefined
