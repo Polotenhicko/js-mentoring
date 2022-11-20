@@ -12,7 +12,7 @@
 
 
 
-// Конструктор предметов и 4 созданных предмета - milk, bread, potatoes, cheese
+// --- Конструктор предметов и 4 созданных предмета - milk, bread, potatoes, cheese ---
 function Item(name, price) {
   this.name = name;
   this.price = price;
@@ -25,7 +25,7 @@ const potatoes = new Item('Potatoes 1Kg', 1.1);
 const cheese = new Item('Cheese 200gr', 2.2);
 
 
-// Конструктор чека
+// --- Конструктор чека ---
 function Check() {
   this.items = [];
   this.lock = false;
@@ -55,7 +55,6 @@ function Check() {
 
     if (this.items.find((foundItem) => foundItem.name === item.name)) {
       const foundIndex = this.items.findIndex((i) => i.name === item.name);
-
       this.items[foundIndex].count += 1;
       this.log.set(this.log.size + 1, `${new Date().toLocaleTimeString()} Added "${item.name}" (x${item.count - 1}) in position ${foundIndex + 1}`);
     } else {
@@ -91,7 +90,7 @@ function Check() {
 
   // .getCheck(code) - Формирует чек. Если есть промокод, передавайте его как аргумент при вызове
   this.getCheck = function (code) {
-    const totalPrice = this.items.map(item => item.price).reduce((sum, e) => sum + e);
+    const totalPrice = this.items.map(item => item.price * item.count).reduce((sum, e) => sum + e);
     let discount = 0;
 
     if (code === 'WINTER20') {
@@ -105,7 +104,7 @@ function Check() {
     }
 
     for (let i = 0; i < this.items.length; i++) {
-      console.log(`${i + 1}. ${this.items[i].price.toFixed(2)}$ - ${this.items[i].name} (${this.items[i].count})`);
+      console.log(`${i + 1}. ${(this.items[i].price * this.items[i].count).toFixed(2)}$ - ${this.items[i].name} (${this.items[i].count})`);
     }
     console.log(`Discount: ${discount}%`);
     if (discount) {
@@ -143,5 +142,7 @@ check.addItem(milk)
     .addItem(potatoes)
     .addItem(cheese)
     .deleteItem(2)
+    .addItem(potatoes)
+    .addItem(potatoes)
     .addItem(potatoes)
     .getCheck('WINTER20').getLog();

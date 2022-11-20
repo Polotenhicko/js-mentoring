@@ -11,6 +11,9 @@ console.log(typeof example, !!example, !!0)   // Output: 'object' true false
 // null/undefined не имеют методов
 console.log(null.test);    // Output: error
 
+// ---------------------------------------------------------------------------------------------------------------------
+
+
 // Task 1
 let str = "Привет";
 str.test = 5;

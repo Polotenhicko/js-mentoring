@@ -93,6 +93,7 @@ console.log(String.fromCodePoint(214));                                 // Outpu
 console.log('esketit' < 'flex');                  // Output: false 
 console.log('esketit'.localeCompare('flex'));     // Output: -1
 
+// ---------------------------------------------------------------------------------------------------------------------
 
 
 // Task 1

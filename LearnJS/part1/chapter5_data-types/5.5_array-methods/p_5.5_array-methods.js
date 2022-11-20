@@ -2,7 +2,7 @@
 // 6 kyu Are they the "same"?
 // https://www.codewars.com/kata/550498447451fbbd7600041c/javascript
 function comp(array1, array2) {
-  return !!array1 && !!array2 &&
+  return Array.isArray(array1) && Array.isArray(array2) &&
       array1.map(n => n * n).sort().join() === array2.sort().join();
 }
 

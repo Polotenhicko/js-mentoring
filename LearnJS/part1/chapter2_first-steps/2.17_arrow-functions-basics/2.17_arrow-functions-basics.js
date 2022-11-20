@@ -13,6 +13,9 @@ console.log(fnArrowAnonimous(
   )
 )
 
+// ---------------------------------------------------------------------------------------------------------------------
+
+
 // Task 1
 // Function => Arrow function
 function ask(question, yes, no) {
