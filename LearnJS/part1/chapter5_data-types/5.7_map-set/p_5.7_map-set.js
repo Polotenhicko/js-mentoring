@@ -10,7 +10,7 @@
 // "08:46:09 Добавлено "Молоко" (id #6) 2 шт."
 // Добавить метод в вашу сущность getLog() который будет выводить полный лог (сначала последние вызовы - ниже более старые).
 
-
+debugger
 
 // --- Конструктор предметов и 4 созданных предмета - milk, bread, potatoes, cheese ---
 function Item(name, price) {
@@ -32,21 +32,21 @@ function Check() {
   this.log = new Map();
 
   // .lockOrder() - Блокирует изменения предметов в чеке
-  this.lockOrder = function () {
+  this.lockOrder = () => {
     this.lock = true;
     console.log('Check is locked now...');
     return this;
   };
 
   // .unlockOrder() - Разблокирует изменения предметов в чеке
-  this.unlockOrder = function () {
+  this.unlockOrder = () => {
     this.lock = false;
     console.log('Check is unlocked now...');
     return this;
   };
 
   // .addItem(item) - Добавляет предмет, созданный в конструкторе предметов - milk, bread, potatoes, cheese
-  this.addItem = function (item) {
+  this.addItem = (item) => {
 
     if (this.lock) {
       console.log('Can\'t do that - check is locked');
@@ -55,18 +55,18 @@ function Check() {
 
     if (this.items.find((foundItem) => foundItem.name === item.name)) {
       const foundIndex = this.items.findIndex((i) => i.name === item.name);
+      this.log.set(this.log.size + 1, `${new Date().toLocaleTimeString()} Added "${item.name}" (x${item.count}) in position ${foundIndex + 1}`);
       this.items[foundIndex].count += 1;
-      this.log.set(this.log.size + 1, `${new Date().toLocaleTimeString()} Added "${item.name}" (x${item.count - 1}) in position ${foundIndex + 1}`);
     } else {
-      this.items.push(item);
-      this.log.set(this.log.size + 1, `${new Date().toLocaleTimeString()} Created "${item.name}" for ${item.price.toFixed(2)}$ (x${item.count}) in position ${this.items.length + 1}`);
+      this.items.push(Object.create(item));
+      this.log.set(this.log.size + 1, `${new Date().toLocaleTimeString()} Created "${item.name}" for ${item.price.toFixed(2)}$ (x${item.count}) in position ${this.items.length}`);
     }
 
     return this;
   };
 
   // .deleteItem(itemPosition, count) - Удаляет count предметов по itemPosition в чеке
-  this.deleteItem = function (itemPosition = this.items.length, count = 1) {
+  this.deleteItem = (itemPosition = this.items.length, count = 1) => {
     if (this.lock) {
       console.log('Can\'t delete - check is locked');
       return this;
@@ -89,7 +89,7 @@ function Check() {
   };
 
   // .getCheck(code) - Формирует чек. Если есть промокод, передавайте его как аргумент при вызове
-  this.getCheck = function (code) {
+  this.getCheck = (code) => {
     const totalPrice = this.items.map(item => item.price * item.count).reduce((sum, e) => sum + e);
     let discount = 0;
 
@@ -112,12 +112,12 @@ function Check() {
     } else {
       console.log(`Total price: ${totalPrice.toFixed(2)}$`);
     }
-    this.log.set(this.log.size + 1, `${new Date().toLocaleTimeString()} Formed check with discount code "${code}"`);
+    this.log.set(this.log.size + 1, `${new Date().toLocaleTimeString()} Check formed with discount code "${code}"`);
     return this;
   };
 
   // Формирует лог
-  this.getLog = function () {
+  this.getLog = () => {
     console.log('\nLog: ');
     this.log.forEach(event => console.log(` ${event}`));
     return this;
