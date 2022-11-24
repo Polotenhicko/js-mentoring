@@ -145,4 +145,5 @@ check.addItem(milk)
     .addItem(potatoes)
     .addItem(potatoes)
     .addItem(potatoes)
-    .getCheck('WINTER20').getLog();
+    .getCheck('WINTER20')
+    .getLog();

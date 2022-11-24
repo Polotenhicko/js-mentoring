@@ -344,9 +344,10 @@ let users5 = [
   {id: "pete", name: "Pete Peterson", age: 31},
 ];
 const groupById = function (arr) {
-  return users5.reduce((ac, e) => {
-    return ac[e.id] = e;
-  }, 0)
+  return arr.reduce((ac, e) => {
+    ac[e.id] = e;
+    return ac;
+  }, {})
 };
 let usersById = groupById(users5);
 log(usersById);

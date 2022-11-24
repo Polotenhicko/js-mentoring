@@ -25,28 +25,46 @@ const obj = {
   fifth: null,
 };
 
-
 const cache = new WeakMap;
 
+/**
+  * The getStringCount() function count all string variables of object or array.
+  *
+  * Does not support cyclic references - cyclic property will be ignored.
+  * @param item - object or array for counting all it's string type variables
+  * @return {number} - Number of strings in item.
+*/
 const getStringCount = function (item) {
   if (!cache.has(item)) {
+
     let strSum = 0;
 
     Object.values(item).forEach(el => {
           if (typeof el === 'string') {
             strSum++;
           } else {
-            if (typeof el === 'object' && el !== null) {
-              strSum+= getStringCount(el);
+            if (typeof el === 'object' && el !== null && el !== item) {
+              strSum += getStringCount(el);
             }
           }
         }
     );
-
     cache.set(item, strSum);
+
+
   }
   return cache.get(item);
 };
 console.log(getStringCount(arr));                              // Output: 5
 console.log(getStringCount(obj));                              // Output: 2
 console.log(getStringCount(['1', '2', ['3', '4']]));      // Output: 4
+
+
+
+// Реализую циклическую ссылку (ссылается на себя)
+const a = {};
+a.str = 'string';
+a.a = a;
+// console.log(a);     // Output: <ref *1> { a: [Circular *1] }
+
+console.log(getStringCount(a));
