@@ -30,13 +30,13 @@ console.log(Date.now());          // Output: 1669338770352
  *   Необязательная часть 'Z' обозначает часовой пояс в формате +-hh:mm. Если указать просто букву Z, то получим UTC+0.
 */
 // Если передать в Date строку формата, то она разберется на дату, если не формат, то отдаст `Invalid Date`
-let stringDate = new Date('15-11-2022')
+let stringDate = new Date('15-11-2022');
 console.log(stringDate);                   // Output: Invalid Date  (тип: object)
-stringDate = new Date('2022-11-15')
+stringDate = new Date('2022-11-15');
 console.log(stringDate);                   // Output: 2022-11-15T00:00:00.000Z (15.11.2022, 03:00:00)
 // тк время не указано - берется полночь по Гринвичу и меняется в зависимости от часового пояса системы
 
-// Метод `Date.parse(strDate)` преобразует строку формата в число timestamp
+// Метод `Date.parse(strDate)` преобразует строку (!) формата в число timestamp
 const parsedDate = Date.parse(stringDate);
 console.log(parsedDate);      // Output: 1668470400000
 
@@ -126,8 +126,8 @@ const date = new Date(2012, 0, 3);  // 3 января 2012 года
 const getLocalDay = function (date) {
   date.setDate(+3);
   return date.getDay();
-}
-console.log( getLocalDay(date) );       // Output: 2
+};
+console.log(getLocalDay(date));       // Output: 2
 
 
 // Task 4
@@ -136,26 +136,67 @@ console.log( getLocalDay(date) );       // Output: 2
 console.log(date.toLocaleString());        // Output: 03.01.2012, 00:00:00
 const getDateAgo = function (date, days) {
   const pastDate = new Date(date);
-  pastDate.setDate(date.getDate() - days)
-  return pastDate.getDate()
-}
-console.log( getDateAgo(date, 1) );   // Output: 2
-console.log( getDateAgo(date, 2) );   // Output: 1
-console.log( getDateAgo(date, 365) ); // Output: 3
+  pastDate.setDate(date.getDate() - days);
+  return pastDate.getDate();
+};
+console.log(getDateAgo(date, 1));   // Output: 2
+console.log(getDateAgo(date, 2));   // Output: 1
+console.log(getDateAgo(date, 365)); // Output: 3
 console.log(date.toLocaleString());        // Output: 03.01.2012, 00:00:00
 
 
 // Task 5
-
+// Напишите функцию getLastDayOfMonth(year, month), возвращающую последнее число месяца. Иногда это 30, 31 или даже февральские 28/29.
+//    year – год из четырёх цифр, например, 2012.
+//    month – месяц от 0 до 11.
+const getLastDayOfMonth = function (year, month) {
+  const monthDays = new Date(year, month + 1, 0);
+  return monthDays.getDate();
+};
+console.log(getLastDayOfMonth(2013, 6)); // 31 (Май)
+console.log(getLastDayOfMonth(2012, 1)); // 29 (високосный год, февраль).
 
 
 // Task 6
-
+// Напишите функцию getSecondsToday(), возвращающую количество секунд с начала сегодняшнего дня.
+const getSecondsToday = function () {
+  const now = new Date();
+  return now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+};
+console.log(getSecondsToday());   // секунды с 00:00:00 сегодняшнего дня
 
 
 // Task 7
-
-
+// Создайте функцию getSecondsToTomorrow(), возвращающую количество секунд до завтрашней даты.
+const getSecondsToTomorrow = function () {
+  const now = new Date();
+  return -1 * (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds() - 86400);
+};
+console.log(getSecondsToTomorrow());  // секунды до 00:00:00 завтрашнего дня
 
 // Task 8
+// Напишите функцию formatDate(date), форматирующую date по следующему принципу:
+//     Если спустя date прошло менее 1 секунды, вывести "прямо сейчас".
+//     В противном случае, если с date прошло меньше 1 минуты, вывести "n сек. назад".
+//     В противном случае, если меньше часа, вывести "m мин. назад".
+//     В противном случае, полная дата в формате "DD.MM.YY HH:mm". А именно: "день.месяц.год часы:минуты", всё в виде двух цифр, т.е. 31.12.16 10:00.
+const formatDate = function (date) {
+  const offset = new Date() - date;
+  switch (true) {
+    case (offset <= 1):
+      return `прямо сейчас`;
+    case (offset <= 60000):
+      return `${offset / 1000} сек. назад`;
+    case (offset <= 3600000):
+      return `${offset / 1000 / 60} мин. назад`;
+    default:
+      return ['0' + date.getDate(), '.', '0' + date.getMonth(), '.', '0' + date.getFullYear(), ', ', '0' + date.getHours(), ':', '0' + date.getMinutes()]
+          .map(el => el.slice(-2))
+          .join('');
+  }
+};
 
+console.log(formatDate(new Date(new Date - 1)));              // "прямо сейчас"
+console.log(formatDate(new Date(new Date - 30 * 1000)));      // "30 сек. назад"
+console.log(formatDate(new Date(new Date - 5 * 60 * 1000)));  // "5 мин. назад"
+console.log(formatDate(new Date(new Date - 86400 * 1000)));   // дата в формате 31.12.2016, 20:00
