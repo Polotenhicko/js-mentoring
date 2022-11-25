@@ -28,7 +28,7 @@ const obj = {
 const cache = new WeakMap;
 
 /**
-  * The getStringCount() function count all string variables of object or array.
+  * The getStringCount() function count all string variables in object or array.
   *
   * Does not support cyclic references - cyclic property will be ignored.
   * @param item - object or array for counting all it's string type variables
