@@ -26,31 +26,34 @@ const obj = {
 };
 
 const cache = new WeakMap;
+const solvedObjects = new WeakSet;
 
 /**
-  * The getStringCount() function count all string variables in object or array.
-  *
-  * Does not support cyclic references - cyclic property will be ignored.
-  * @param item - object or array for counting all it's string type variables
-  * @return {number} - Number of strings in item.
-*/
+ * The getStringCount() function count all string variables in object or array.
+ *
+ * Does not support cyclic references - cyclic property will be ignored.
+ * @param item - object or array for counting all it's string type variables
+ * @return {number} - Number of strings in item.
+ */
 const getStringCount = function (item) {
   if (!cache.has(item)) {
 
     let strSum = 0;
 
-    Object.values(item).forEach(el => {
-          if (typeof el === 'string') {
+    Object.values(item).forEach(value => {
+          if (typeof value === 'string') {
             strSum++;
           } else {
-            if (typeof el === 'object' && el !== null && el !== item) {
-              strSum += getStringCount(el);
+            if (typeof value === 'object' && value !== null) {
+              if (!solvedObjects.has(value)) {
+                solvedObjects.add(value);
+                strSum += getStringCount(value);
+              }
             }
           }
         }
     );
     cache.set(item, strSum);
-
 
   }
   return cache.get(item);
@@ -66,5 +69,11 @@ const a = {};
 a.str = 'string';
 a.a = a;
 // console.log(a);     // Output: <ref *1> { a: [Circular *1] }
+
+// Реализую циклическую ссылку (ссылается на себя через второй объект)
+const b = {
+  a,
+};
+a.b = b;
 
 console.log(getStringCount(a));
