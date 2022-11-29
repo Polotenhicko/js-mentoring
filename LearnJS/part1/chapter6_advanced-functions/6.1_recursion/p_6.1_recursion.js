@@ -18,7 +18,6 @@ const sequenceSum = function (b, e) {
 console.log(sequenceSum(4, 10));
 
 
-
 // Task 2
 // getStringCount:
 // Реализуйте (с использованием рекурсии) функцию getStringCount,
