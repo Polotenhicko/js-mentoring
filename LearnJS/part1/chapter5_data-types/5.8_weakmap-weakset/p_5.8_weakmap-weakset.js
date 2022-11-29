@@ -58,7 +58,7 @@ const getStringCount = function (item) {
   }
   return cache.get(item);
 };
-console.log(getStringCount(arr));                              // Output: 5
+console.log(getStringCount(arr));                              // Output: 0
 console.log(getStringCount(obj));                              // Output: 2
 console.log(getStringCount(['1', '2', ['3', '4']]));      // Output: 4
 
