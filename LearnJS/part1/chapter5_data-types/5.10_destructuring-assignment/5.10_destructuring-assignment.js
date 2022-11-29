@@ -95,7 +95,7 @@ console.log(title, width, weight, item1, item2);     // Output: 'default' 10 20 
 function showMenu({title = 'menu', width = 100, height = 200} = {}) {
   console.log(`${title} ${width} ${height}`);
 }
-showMenu();     // Output: 'menu 100 200'
+showMenu({width: 500});     // Output: 'menu 500 200'
 // (!) Но обязательно нужно давать аргументу-объекту при объявлении значение по-умолчанию
 
 

@@ -25,8 +25,8 @@ const obj = {
   fifth: null,
 };
 
-const cache = new WeakMap;
-const solvedObjects = new WeakSet;
+const cache = new WeakMap();
+const solvedObjects = new WeakSet();
 
 /**
  * The getStringCount() function count all string variables in object or array.
@@ -44,7 +44,7 @@ const getStringCount = function (item) {
           if (typeof value === 'string') {
             strSum++;
           } else {
-            if (typeof value === 'object' && value !== null) {
+            if (typeof value === 'object' && !value) {
               if (!solvedObjects.has(value)) {
                 solvedObjects.add(value);
                 strSum += getStringCount(value);
