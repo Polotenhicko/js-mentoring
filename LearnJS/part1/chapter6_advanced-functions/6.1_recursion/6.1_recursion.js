@@ -89,7 +89,6 @@ printList(list);     // Output: 1 2 3 4
 
 // Task 5
 // Выведите односвязный список из предыдущего задания в обратном порядке
-debugger
 const printReverseList = function (list) {
   if (list.next) {
     printReverseList(list.next);

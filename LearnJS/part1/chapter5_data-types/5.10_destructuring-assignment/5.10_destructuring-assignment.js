@@ -2,11 +2,11 @@
 
 // Деструктурирующее присваивание - 'распаковка' ПЕРЕБИРАЕМЫХ объектов в несколько переменных
 const [firstName, secondName] = 'Cool Man Nice Code'.split(' ');
-const [a, b, c] = 'abc';
-const [one, two, three] = new Set([1, 2, 3]);
 console.log(firstName);          // Output: 'Cool'
 console.log(secondName);         // Output: 'Man'
+const [a, b, c] = 'abc';
 console.log(a, b, c);            // Output: 'a' 'b' 'c'
+const [one, two, three] = new Set([1, 2, 3]);
 console.log(one, two, three);    // Output: 1 2 3
 
 // Можно пропустить переменную, указав 'холостую' запятую

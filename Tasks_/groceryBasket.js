@@ -1,10 +1,8 @@
-'use strict';
-
-// Task 1
 // Задача на конструктор заказа:
-// Создайте функцию-конструктор GroceryBasket(), создающую const-объекты, с методами addItem(), deleteItem(), getCheck(). 
+// Создайте функцию-конструктор GroceryBasket(), создающую const-объекты, с методами addItem(), deleteItem(), getCheck().
 // getCheck() должен группировать аналогичные объекты в одну позицию, выдавать стоимости объектов и итоговую стоимость корзины.
-debugger
+'use strict'
+
 
 // Конструктор предметов и 4 созданных предмета - milk, bread, potatoes, cheese
 function Item(name, price) {
@@ -109,13 +107,3 @@ check.addItem(milk)
     .deleteItem(2)
     .addItem(potatoes)
     .getCheck('WINTER20');
-
-
-
-// Task 2
-// Тестануть new.target
-// function test() {
-//   console.log(new.target)
-// }
-// test();
-// new test();
