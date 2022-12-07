@@ -1,5 +1,8 @@
 // https://learn.javascript.ru/date
 
+// Лучше использовать api - day.js, moment.js
+// Intl.dateTimeFormat - для форматирования даты
+
 // Date(year, month, date?, hours?, minutes?, seconds?, ms?) создает структуру данных для работы с датой и временем
 const now = new Date();
 console.log(now);       // Output: 2022-11-24T18:02:58.406Z
