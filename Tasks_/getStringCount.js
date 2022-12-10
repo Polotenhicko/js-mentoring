@@ -33,6 +33,8 @@ const getStringCount = function (item) {
 };
 
 
-console.log(getStringCount(arr));                              // Output: 0
-console.log(getStringCount(obj));                              // Output: 2
-console.log(getStringCount(['1', '2', ['3', '4']]));      // Output: 4
+console.log(
+    getStringCount(arr),                            // Output: 0
+    getStringCount(obj),                            // Output: 2
+    getStringCount(['1', '2', ['3', '4']]),    // Output: 4
+);

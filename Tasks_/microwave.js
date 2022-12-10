@@ -24,9 +24,33 @@
 
 
 
-// Конструктор еды
-function Food() {
+/*
+* Функции микроволновки:
+*
+* .plugIn() - Включить микроволновку в розетку
+* .inPlug() - Выключить микроволновку из розетки
+* .open() - Открыть дверцу микроволновки
+* .close() - Закрыть дверцу микроволновки
+* .putFood(foodName|food) - Положить еду в микроволновку (принимает строку названия еды или объект из конструктора еды)
+* .getFood() - Вытащить еду из микроволновки
+* .addTime(sec) - Задать время разогрева (принимает секунды, в том числе отрицательные)
+* .start() - Запустить разогрев (Если время не выставлено, запускает разогрев на 30 сек; Если уже разогревается - добавляет 30 сек)
+* .cancel() - Сброс времени разогрева; если разогревается - остановка разогрева,
+* .switchMode() - Поочередная смена режима (easy (x1) => medium (x2) => hard (x3))
+*
+* new Food(foodName) - Создать еду с помощью конструктора еды
+ */
+
+
+// Конструктор еды (принимает строку названия еды)
+function Food(name = 'food') {
   this.temperature = 23;
+  if (typeof name != 'string') {
+    console.log('If you wanna name your food - send string with name as argument of new Food()');
+    name = 'food';
+  }
+  this.name = name;
+  console.log(`${name} created`);
 
   this.cooling = () => {
     setTimeout(() => {
@@ -49,7 +73,7 @@ function Food() {
   })();
 }
 
-const food = new Food();
+const food = new Food('kasha');
 
 function Microwave() {
   this.isPluggedIn = false;
@@ -109,13 +133,18 @@ function Microwave() {
     return this;
   };
 
-  // Положить еду в микроволновку (принимает еду из конструктора еды)
+  // Положить еду в микроволновку (принимает строку названия еды)
   this.putFood = (food) => {
     if (this.isOpen) {
       if (!this.contains) {
         if (food) {
-          this.contains = food;
-          console.log('Food was put in microwave');
+          if (food.temperature && food.cooling && food.temperatureCheck) {
+            this.contains = food;
+          } else {
+            food = new Food(food);
+            this.contains = food;
+          }
+          console.log(`${this.contains.name} was put in microwave`);
         } else {
           console.log('Can\'t put nothing, send food as argument');
         }
@@ -132,8 +161,8 @@ function Microwave() {
   this.getFood = () => {
     if (this.isOpen) {
       if (this.contains) {
+        console.log(`${this.contains.name} was removed from microwave`);
         this.contains = null;
-        console.log('Food was removed from microwave');
       } else {
         console.log('Can\'t get food - microwave is empty');
       }
@@ -147,7 +176,11 @@ function Microwave() {
   this.addTime = (seconds) => {
     if (this.isPluggedIn) {
       this.timer += seconds;
-      console.log(`New warming up time was set: ${this.timer} seconds`);
+      if (seconds > 0) {
+        console.log(`New warming up time was set: ${this.timer} seconds`);
+      } else {
+        console.log('On start time less than 0 will equate to 0');
+      }
     } else {
       console.log('Can\'t set time - microwave is unplugged');
     }
@@ -162,20 +195,24 @@ function Microwave() {
           if (this.isWarmingUp) {
             this.timer += 30;
           } else {
-            if (this.timer === 0) {
+            if (this.timer <= 0) {
               this.timer = 30;
+              console.log(`New warming up time was set: ${this.timer} seconds`);
             }
             this.isWarmingUp = true;
             const heating = () => {
               setTimeout(() => {
                 if (this.timer > 0 && this.isWarmingUp) {
-                  console.log(`${this.timer} seconds remaining. Food heats up, current temperature - ${this.contains.temperature}°`);
+                  console.log(`${this.timer} seconds remaining. ${this.contains.name} heats up, current temperature - ${this.contains.temperature}°`);
                   this.contains.temperature += this.mode;
                   this.timer--;
                   heating();
                 } else {
                   if (this.timer === 0) {
-                    console.log(`Beep-beep, warmth of food - ${this.contains.temperature}°`);
+                    console.log(`Beep-beep, warmth of ${this.contains.name} - ${this.contains.temperature}°`);
+                    this.isWarmingUp = false;
+                  } else {
+                    console.log('Warming up has been stopped');
                     this.isWarmingUp = false;
                   }
                 }
@@ -211,7 +248,7 @@ function Microwave() {
     return this;
   };
 
-  // Смена режима (easy (x0.5) => medium (x1) => hard (x2))
+  // Смена режима (easy (x1) => medium (x2) => hard (x3))
   this.switchMode = () => {
     if (this.isPluggedIn) {
       switch (this.mode) {
@@ -236,4 +273,8 @@ function Microwave() {
 }
 
 const microwave = new Microwave();
-microwave.open().plugIn().addTime(15).putFood(food).close();
+microwave.open()
+    .plugIn()
+    .addTime(15)
+    .putFood('kasha')
+    .close();

@@ -45,7 +45,7 @@ console.log(`total foo3 calls: ${foo3.counter}`);      // Output: 'total foo3 ca
 
 
 
-// `Named Function Expression (NFE)` - синтаксис для динамического 'ссылания' объекта на себя (this в мире функций). Не работает с Function Declaration.
+// `Named Function Expression (NFE)` - синтаксис для динамического 'ссылания' функции на себя (this в мире функций). Не работает с Function Declaration.
 const foo4 = function func(name) {
   return name ? `name is: ${name}` : func('guest');
 }
@@ -90,11 +90,13 @@ console.log(`total counter calls: ${counter.value}`);      // Output: 'total cou
 
 // Task 2
 // Напишите функцию sum, которая бы работала следующим образом:
-console.log(+sum(1)(2));                              // Output: 3
-console.log(+sum(1)(2)(3));                        // Output: 6
-console.log(+sum(5)(-1)(2));                       // Output: 6
-console.log(+sum(6)(-1)(-2)(-3));               // Output: 0
-console.log(+sum(0)(1)(2)(3)(4)(5));      // Output: 15
+console.log(
+    +sum(1)(2),                           // Output: 3
+    +sum(1)(2)(3),                     // Output: 6
+    +sum(5)(-1)(2),                    // Output: 6
+    +sum(6)(-1)(-2)(-3),            // Output: 0
+    +sum(0)(1)(2)(3)(4)(5),   // Output: 15
+);
 
 function sum (n) {
 
