@@ -77,21 +77,70 @@ console.log(
 // Task 2
 // Создайте декоратор delay(f, ms), который задерживает каждый вызов f на ms миллисекунд.
 function delay(f, ms) {
-
+  return function (...args) {
+    setTimeout(() => f.call(this, ...args), ms);
+  }
 }
+function sum2(a, b) {
+  console.log(a + b);
+}
+const delayedSum2 = delay(sum2, 1000);
+delayedSum2(10, 15);                        // Output: 25   (after 1 sec)
+
 
 // Task 3
 // Результатом декоратора debounce(f, ms) должна быть обёртка, которая передаёт вызов f не более одного раза в ms миллисекунд.
 // Другими словами, когда мы вызываем debounce, это гарантирует, что все остальные вызовы будут игнорироваться в течение ms.
-function debounce(f, ms) {
-
+const debounce = function func(f, ms) {
+  func.isOpen = true;
+  return function (...args) {
+    if (func.isOpen) {
+      func.isOpen = false;
+      f.call(this, ...args);
+      setTimeout(() => func.isOpen = true, ms);
+    } else {
+      console.log(`try again in ${ms / 1000} seconds`);
+    }
+  };
 }
+function sum3(a, b) {
+  console.log(a + b);
+}
+const debouncedSum = debounce(sum3, 5000);
+debouncedSum(10, 23);                             // Output: 33
+debouncedSum(10, 24);                             // Output: 'try again in 5 seconds'
 
 
 // Task 4
 // Создайте «тормозящий» декоратор throttle(f, ms), который возвращает обёртку, передавая вызов в f не более одного раза в ms миллисекунд.
 // Те вызовы, которые попадают в период «торможения», игнорируются.
 // Отличие от debounce – если проигнорированный вызов является последним во время «задержки», то он выполняется в конце.
-function throttle(f, ms) {
+const throttle = function func(f, ms) {
+  let isOpen = true;
+  let argsBuffer = [];
 
+  return function (...args) {
+
+    if (isOpen) {
+      isOpen = false;
+      f.call(this, ...args);
+      setTimeout(() => {
+        isOpen = true;
+        if (argsBuffer) {
+          f.call(this, ...argsBuffer[argsBuffer.length - 1]);
+          argsBuffer = [];
+        }
+
+      }, ms);
+    } else {
+      argsBuffer.push(args);
+    }
+  };
 }
+function sum4(a, b) {
+  console.log(a + b);
+}
+const throttledSum = throttle(sum4, 5000);
+throttledSum(10, 23);                             // Output: 33
+throttledSum(10, 24);                             // Output: (пусто)
+throttledSum(10, 25);                             // Output: 35
