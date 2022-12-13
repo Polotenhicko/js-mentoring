@@ -12,6 +12,16 @@ setTimeout(user.getName, 0);                 // Output: undefined
 setTimeout(user.getName.bind(user), 0);      // Output: 'Vova'
 
 
+// bind(null) ссылается на глобальный объект
+function f11() {
+  console.log( this );
+}
+let user11 = {
+  g: f11.bind(null)
+};
+user11.g();         // Output: globalThis
+
+
 // Также можно запихнуть выполнение в анонимную функцию, тогда сработает замыкание на объекте.
 // (!) Но такой метод имеет уязвимость - если мы перезапишем объект во время вызова (зайдет другой пользователь), то мы получим ошибку
 setTimeout(() => user.getName(), 0);      // Output: 'Vova'
@@ -67,7 +77,7 @@ obj.sayNow('Hello');
 // Task 1
 // Что выведет функция?
 function f1() {
-  console.log( this ); // Output:
+  console.log( this ); // Output: globalThis
 }
 
 let user1 = {
@@ -84,7 +94,7 @@ function f2() {
   console.log(this.name);
 }
 f2 = f2.bind( {name: "Вася"} ).bind( {name: "Петя" } );
-f2();
+f2();                                                         // Output: 'Вася' - bind работает только 1 раз
 
 
 
@@ -96,10 +106,10 @@ function sayHi() {
 sayHi.test = 5;
 
 let bound = sayHi.bind({
-  name: "Вася"
+  name: "Вася",
 });
 
-console.log( bound.test ); // что выведет? почему?
+console.log( bound.test ); // undefined, тк bind полностью поменял контекст функции
 
 
 
@@ -126,7 +136,7 @@ let user4 = {
 
 };
 
-askPassword(user4.loginOk, user4.loginFail);
+askPassword(user4.loginOk.bind(user4), user4.loginFail.bind(user4));      // Output: 'Вася failed to log in' - была потеря контекста из-за колбэка
 
 
 
@@ -149,4 +159,4 @@ let user5 = {
   }
 };
 
-// askPassword5(?, ?); // ?
+askPassword5(user5.login.bind(user5, true), user5.login.bind(user5, false));    // Output: John failed to log in
