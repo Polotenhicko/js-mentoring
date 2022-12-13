@@ -4,16 +4,16 @@
 
 
 // =========== Теория ===========
-let x = 10;
-function foo() {
-  console.log(x);
-}
-function bar() {
-  let x = 20;
-  foo();           // Output: 10 (тк область видимости где создана, а не где вызвана функция)
-}
-bar();
-// Замыкание - функция, которая может получить доступ к тому контексту(переменным), где она создана.
+// let x = 10;
+// function foo() {
+//   console.log(x);
+// }
+// function bar() {
+//   let x = 20;
+//   foo();
+// }
+// bar();// Output: 10 (тк область видимости где создана, а не где вызвана функция)
+// Замыкание - это когда функция может получить доступ к тому контексту(переменным), где она создана.
 
 // (!) При каждом выполнении функции создается новое лексическое окружение, ссылающееся на родительский эл-т
 // Лексическое окружение (LexicalEnvironment) - недоступный объект, который содержит информацию о конкретной функции\блоке\скрипте, состоит из:
@@ -22,83 +22,86 @@ bar();
 // [[Environment]] не меняется (в отличие от this) и обеспечивает достижимость родительского эл-та, пока внутренняя функция жива.
 
 
-// Лексическое окружение цикла for работает уникально и отличается от других циклов:
-// каждую итерацию лексическое окр. новое, то есть пересоздается в новом окружении со след. значением - уникальна каждый шаг
-const arr10 = [];
-for (let i = 0; i < 10; i++) {
-
-  const foo = function () {
-    console.log(`for: ${i}`);
-  };
-
-  arr10.push(foo);
-}
-arr10[5]();       // Output: for: 5
-arr10[9]();       // Output: for: 9
-
-
-// то же самое, только с циклом while:
-const arr11 = [];
-let i = 0;
-while (i < 10) {
-
-  const foo = function () {
-    console.log(`while: ${i}`);
-  };
-
-  arr11.push(foo);
-  i++;
-}
-arr11[5]();       // Output: while: 10
-arr11[9]();       // Output: while: 10
+// // Лексическое окружение циклов создается каждую итерацию.
+// // Каждую итерацию лексическое окр. новое, то есть итерируемая переменная пересоздается в новом окружении со след. значением
+// const arr11 = [];
+// let i = 0;
+// while (i < 10) {
+//   const foo = function () {
+//     console.log(`while: ${i}`);
+//   };
+//
+//   arr11.push(foo);
+//   i++;
+// }
+// arr11[5]();       // Output: while: 10
+// arr11[9]();       // Output: while: 10    - так происходит из-за того, что лексическое окружение каждой предыдущей итерации становится недостижимо, и мы ссылаемся на последнюю итерацию.
+// // Чтобы обеспечить достижимость, нам нужна локальная переменная в цикле.
+// // Можно создать переменную `const j = i` в начале цикла, тогда
 
 
-// Конструктор через замыкание - используется для тех же целей, что и функция конструктор (создает объект с вложенной логикой),
-// но обеспечивает инкапсуляцию переменных (то есть доступ к ним есть только у созданной функции)
-// обычный конструктор через this, new:
-function Constructor() {
-  this.name = 'pupa';
-  this.getName = function () {
-    return this.name;
-  };
-}
-const foo5 = new Constructor();
-console.log(
-    foo5.getName(),    // Output: 'pupa'
-    foo5.name,         // Output: 'pupa'
-);
+// // То же самое, только с циклом for (итерируемая переменная у него локальная)
+// const arr10 = [];
+// for (let i = 0; i < 10; i++) {
+//
+//   const foo = function () {
+//     console.log(`for: ${i}`);
+//   };
+//
+//   arr10.push(foo);
+// }
+// arr10[5]();       // Output: for: 5
+// arr10[9]();       // Output: for: 9
 
-// конструктор через замыкание:
-function closureConstructor() {
-  const name = 'lupa';
-  return {
-    getName() {return name}
-  };
-}
-const foo6 = closureConstructor();
-console.log(
-    foo6.getName(),     // Output: 'lupa'
-    foo6.name,          // Output: 'undefined'
-);
+
+
+// // Конструктор через замыкание - используется для тех же целей, что и функция конструктор (создает объект с вложенной логикой),
+// // но обеспечивает инкапсуляцию переменных (то есть доступ к ним есть только у созданной функции)
+// // обычный конструктор через this, new:
+// function Constructor() {
+//   this.name = 'pupa';
+//   this.getName = function () {
+//     return this.name;
+//   };
+// }
+// const foo5 = new Constructor();
+// console.log(
+//     foo5.getName(),    // Output: 'pupa'
+//     foo5.name,         // Output: 'pupa'
+// );
+//
+// // конструктор через замыкание:
+// function closureConstructor() {
+//   const name = 'lupa';
+//   return {
+//     getName() {return name}
+//   };
+// }
+// const foo6 = closureConstructor();
+// console.log(
+//     foo6.getName(),     // Output: 'lupa'
+//     foo6.name,          // Output: 'undefined'
+// );
 
 // Обычный конструктор функции имеет динамическую ссылку this, которая позволяет созданным экземплярам ссылаться на себя.
 // У конструктора через замыкания нет this, зато можно создать динамическую ссылку на функцию с помощью синтаксиса Named Function Expression (NFE)
 
-// `Named Function Expression (NFE)` - синтаксис для динамического 'ссылания' функции на себя (this в мире функций).
-let foo7 = function (name) {
-  return name ? `name is: ${name}` : foo7('guest');
-}
-const foo8 = foo7;
-foo7 = null;
-// console.log(foo8());      // TypeError: foo7 is not a function
+// // `Named Function Expression (NFE)` - синтаксис для динамического 'ссылания' функции на себя (this в мире функций).
+// let foo7 = function (name) {
+//   return name ? `name is: ${name}` : foo7('guest');
+// }
+// const foo8 = foo7;
+// foo7 = null;
+// // console.log(foo8());      // TypeError: foo7 is not a function
+//
+// let foo77 = function func(name) {
+//   return name ? `name is: ${name}` : func('guest');
+// }
+// const foo88 = foo77;
+// foo77 = null;
+// console.log(foo88());      // Output: 'name is: guest'
+// //                                                            Не работает с Function Declaration.
 
-let foo77 = function func(name) {
-  return name ? `name is: ${name}` : func('guest');
-}
-const foo88 = foo77;
-foo77 = null;
-console.log(foo88());      // Output: 'name is: guest'
-//                                                            Не работает с Function Declaration.
 
 
 // =========== Задачи ===========
@@ -224,4 +227,4 @@ console.log(foo88());      // Output: 'name is: guest'
 // increment();
 // increment();
 // log();
-// // Ответ: 0 - тк message присваивается нулевой count, далее count повышается, но message уже объявлена
+// // Ответ: 0 - тк message присваивается нулевой count, далее count инкриминируется, но message уже объявлена
