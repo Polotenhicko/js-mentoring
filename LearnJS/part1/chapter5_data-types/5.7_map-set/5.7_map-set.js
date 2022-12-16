@@ -49,7 +49,7 @@ console.log(mappo.get(NaN));                          // Output: NaNKey (тк д
 mappo[[]] = 'nnuullll';
 mappo[null] = 'null';
 mappo[{}] = 'nnnuuullllll';
-console.log(mappo);                                   // Output: 26 строка + { '': 'nnuullll', null: 'null', '[object Object]': 'nnnuuullllll' }
+console.log(mappo);                                   // Output: 26 строка +  '': 'nnuullll', null: 'null', '[object Object]': 'nnnuuullllll' }
 console.log(mappo['12345']);                          // Output: undefined
 
 

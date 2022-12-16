@@ -49,14 +49,13 @@ const object2 = {
 };
 
 object2[Symbol.iterator] = function () {
-  const last = Object.entries(this).length;
+  const objectPairs = Object.entries(this);
   let i = 0;
-  const thisObj = this;
 
   return {
     next() {
-      if (last > i) {
-        return {done: false, value: Object.entries(thisObj)[i++][1]};
+      if (objectPairs.length > i) {
+        return {done: false, value: objectPairs[i++][1]};
       } else {
         return {done: true};
       }

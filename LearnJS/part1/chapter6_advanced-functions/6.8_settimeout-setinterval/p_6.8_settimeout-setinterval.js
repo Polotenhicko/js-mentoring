@@ -59,7 +59,7 @@ function Food(name = 'food') {
       } else {
         this.temperatureCheck();
       }
-    },2000)
+    },4000)
   };
 
   (this.temperatureCheck = () => {
@@ -79,194 +79,190 @@ function Microwave() {
   this.isOpen = false;
   this.contains = null;
   this.timer = 0;
-  this.mode = 2;
+  this.mode = 1;
   this.isWarmingUp = false;
 
   // Включить микроволновку в розетку
   this.plugIn = () => {
-    if (!this.isPluggedIn) {
+    if (this.isPluggedIn) {
+      console.log('Can\'t plug in - microwave already plugged in');
+    } else {
       this.isPluggedIn = true;
       console.log('Turning on... Hello!');
-    } else {
-      console.log('Can\'t plug in - microwave already plugged in');
     }
     return this;
   };
 
   // Выключить микроволновку из розетки
   this.unPlug = () => {
-    if (this.isPluggedIn) {
+    if (!this.isPluggedIn) {
+      console.log('Can\'t unplug - microwave already unplugged');
+    } else {
       this.isPluggedIn = false;
       this.isWarmingUp = false;
       this.timer = 0;
       console.log('Numbers on the display have suddenly disappeared...');
-    } else {
-      console.log('Can\'t unplug - microwave already unplugged');
     }
     return this;
   };
 
   // Открыть дверцу микроволновки
   this.open = () => {
-    if (!this.isOpen) {
+    if (this.isOpen) {
+      console.log('Can\'t open - microwave already opened');
+    } else {
       this.isOpen = true;
       console.log('Microwave is open');
       if (this.isWarmingUp) {
         this.isWarmingUp = false;
         console.log('Warming up has been stopped');
       }
-    } else {
-      console.log('Can\'t open - microwave already opened');
     }
     return this;
   };
 
   // Закрыть дверцу микроволновки
   this.close = () => {
-    if (this.isOpen) {
+    if (!this.isOpen) {
+      console.log('Can\'t close - microwave already closed');
+    } else {
       this.isOpen = false;
       console.log('Microwave is closed');
-    } else {
-      console.log('Can\'t close - microwave already closed');
     }
     return this;
   };
 
   // Положить еду в микроволновку (принимает строку названия еды)
   this.putFood = (food) => {
-    if (this.isOpen) {
-      if (!this.contains) {
-        if (food) {
-          if (food.temperature && food.cooling && food.temperatureCheck) {
-            this.contains = food;
-          } else {
-            food = new Food(food);
-            this.contains = food;
-          }
-          console.log(`${this.contains.name} was put in microwave`);
-        } else {
-          console.log('Can\'t put nothing, send food as argument');
-        }
-      } else {
-        console.log('Can\'t put food - microwave is full');
-      }
-    } else {
+    if (!this.isOpen) {
       console.log('Can\'t put food - microwave is closed');
+      return this;
+    }
+    if (this.contains) {
+      console.log('Can\'t put food - microwave is full');
+      return this;
+    }
+    if (!food) {
+      console.log('Can\'t put nothing, send food as argument');
+      return this;
+    }
+    if (food.temperature && food.cooling && food.temperatureCheck) {
+      this.contains = food;
+      console.log(`${this.contains.name} was put in microwave`);
+    } else {
+      food = new Food(food);
+      this.contains = food;
+      console.log(`${this.contains.name} was put in microwave`);
     }
     return this;
   };
 
   // Вытащить еду из микроволновки
   this.getFood = () => {
-    if (this.isOpen) {
-      if (this.contains) {
-        console.log(`${this.contains.name} was removed from microwave`);
-        this.contains = null;
-      } else {
-        console.log('Can\'t get food - microwave is empty');
-      }
-    } else {
+    if (!this.isOpen) {
       console.log('Can\'t get food - microwave is closed');
+      return this;
     }
+    if (!this.contains) {
+      console.log('Can\'t get food - microwave is empty');
+      return this;
+    }
+    console.log(`${this.contains.name} was removed from microwave`);
+    this.contains = null;
     return this;
   };
 
   // Задать время разогрева (принимает секунды)
   this.addTime = (seconds) => {
-    if (this.isPluggedIn) {
-      this.timer += seconds;
-      if (seconds > 0) {
-        console.log(`New warming up time was set: ${this.timer} seconds`);
-      } else {
-        console.log('On start time less than 0 will equate to 0');
-      }
-    } else {
+    if (!this.isPluggedIn) {
       console.log('Can\'t set time - microwave is unplugged');
+      return this;
     }
+    this.timer += seconds;
+    if (!(seconds > 0)) {
+      console.log('On start time less than 0 will equate to 0');
+    }
+    console.log(`New warming up time was set: ${this.timer} seconds`);
     return this;
   };
 
   // Старт - запустить разогрев (Если время не выставлено, запускает разогрев на 30 сек; Если уже разогревается - добавляет 30 сек)
   this.start = () => {
-    if (this.isPluggedIn) {
-      if (!this.isOpen) {
-        if (this.contains) {
-          if (this.isWarmingUp) {
-            this.timer += 30;
-          } else {
-            if (this.timer <= 0) {
-              this.timer = 30;
-              console.log(`New warming up time was set: ${this.timer} seconds`);
-            }
-            this.isWarmingUp = true;
-            const heating = () => {
-              setTimeout(() => {
-                if (this.timer > 0 && this.isWarmingUp) {
-                  console.log(`${this.timer} seconds remaining. ${this.contains.name} heats up, current temperature - ${this.contains.temperature}°`);
-                  this.contains.temperature += this.mode;
-                  this.timer--;
-                  heating();
-                } else {
-                  if (this.timer === 0) {
-                    console.log(`Beep-beep, warmth of ${this.contains.name} - ${this.contains.temperature}°`);
-                    this.isWarmingUp = false;
-                  } else {
-                    console.log('Warming up has been stopped');
-                    this.isWarmingUp = false;
-                  }
-                }
-              },1000)
-            };
-            heating();
-          }
-        } else {
-          console.log('Can\'t start - microwave is empty');
-        }
-      } else {
-        console.log('Can\'t start - microwave is open');
-      }
-    } else {
+    if (!this.isPluggedIn) {
       console.log('Can\'t start - microwave is unplugged');
+      return this;
+    }
+    if (this.isOpen) {
+      console.log('Can\'t start - microwave is open');
+      return this;
+    }
+    if (!this.contains) {
+      console.log('Can\'t start - microwave is empty');
+      return this;
+    }
+    if (this.isWarmingUp) {
+      this.timer += 30;
+    } else {
+      if (this.timer <= 0) {
+        this.timer = 30;
+        console.log(`New warming up time was set: ${this.timer} seconds`);
+      }
+      this.isWarmingUp = true;
+      const heating = () => {
+        setTimeout(() => {
+          if (this.timer > 0 && this.isWarmingUp) {
+            console.log(`${this.timer} seconds remaining. ${this.contains.name} heats up, current temperature - ${this.contains.temperature}°`);
+            this.contains.temperature += this.mode + 1;
+            this.timer--;
+            heating();
+          } else {
+            if (this.timer === 0) {
+              console.log(`Beep-beep, warmth of ${this.contains.name} - ${this.contains.temperature}°`);
+              this.isWarmingUp = false;
+            } else {
+              console.log('Warming up has been stopped');
+              this.isWarmingUp = false;
+            }
+          }
+          },1000)
+      };
+      heating();
     }
     return this;
   }
 
   // Отмена - остановка разогрева или сброс времени разогрева
   this.cancel = () => {
-    if (this.isPluggedIn) {
-      if (this.isWarmingUp) {
-        this.isWarmingUp = false;
-        console.log('Warming up was canceled');
-      } else {
-        this.timer = 0;
-        console.log('Time has been reset');
-      }
-    } else {
+    if (!this.isPluggedIn) {
       console.log('Can\'t reset time - microwave is unplugged');
+      return this;
+    }
+
+    if (this.isWarmingUp) {
+      this.isWarmingUp = false;
+      console.log('Warming up was canceled');
+    } else {
+      this.timer = 0;
+      console.log('Time has been reset');
     }
     return this;
   };
 
   // Смена режима (easy (x1) => medium (x2) => hard (x3))
   this.switchMode = () => {
-    if (this.isPluggedIn) {
-      switch (this.mode) {
-        case 1:
-          this.mode = 2;
-          console.log(`Microwave mode switched to x${this.mode}`);
-          break;
-        case 2:
-          this.mode = 3;
-          console.log(`Microwave mode switched to x${this.mode}`);
-          break;
-        case 3:
-          this.mode = 1;
-          console.log(`Microwave mode switched to x${this.mode}`);
-          break;
-      }
-    } else {
+    if (!this.isPluggedIn) {
       console.log('Can\'t switch mode - microwave is unplugged');
+      return this;
     }
+
+    if (this.mode === 2) {
+      this.mode = 0;
+    } else {
+      this.mode++;
+    }
+
+    const modes = ['easy (x1)', 'medium (x2)', 'hard (x3)'];
+    console.log(`Microwave mode switched to ${modes[this.mode]}`);
     return this;
   };
 }

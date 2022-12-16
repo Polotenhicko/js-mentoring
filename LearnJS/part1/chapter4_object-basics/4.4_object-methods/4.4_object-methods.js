@@ -19,7 +19,7 @@
   example2.thisExample()
 
 
-// `this` не работает на стрелочных функциях (игнорирует их):
+// `this` на стрелочных функциях выдает родительский эл-т функции выше:
   const example3arr = {
     thisExampleArr() { 
       const arrow = () => {console.log(this)};  // Ссылается на 23 строку

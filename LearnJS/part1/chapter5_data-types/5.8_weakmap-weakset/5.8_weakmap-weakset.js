@@ -14,7 +14,7 @@ function process(obj) {
 // Ключи WeakMap не могут быть примитивами
 // weakMappo.set('stringKey', 'value');            // TypeError
 
-// Cсылки WeakMap на объекты НЕ дают достижимость этим объектам, при потере 'сильной' ссылки свойство из WeakMap удаляется
+// Cсылки WeakMap на объекты НЕ дают достижимость этим объектам, при потере других ссылок свойство из WeakMap удаляется
 const weakMappo = new WeakMap;
 let exampleObj = {};
 weakMappo.set(exampleObj, 'Example value');

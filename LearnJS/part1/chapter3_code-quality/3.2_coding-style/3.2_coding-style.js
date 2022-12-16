@@ -13,15 +13,18 @@
 
 
 
-// Пример документации функций
+// Пример документации функций JsDoc
 /**
  * Represents a book.
  * @constructor
  * @param {string} title - The title of the book.
  * @param {string} author - The author of the book.
  */
- function Book(title, author) {
+function Book(title, author) {
+  this.title = title;
+  this.author = author;
 }
+
 /**
  * Returns x, raised to the nth power.
  *
@@ -29,13 +32,14 @@
  * @param {number} n A number that can be raised to a power.
  * @return {number} x, raised to the nth power.
  */
- function pow(x, n) {
+function pow(x, n) {
+  return x ** n;
 }
 
 
 
 // Task 1
-function pow(x,n)
+function pow1(x,n)
 {
   let result=1;
   for(let i=0;i<n;i++) {result*=x;}
@@ -49,12 +53,12 @@ if (n<=0)
 }
 else
 {
-  alert(pow(x,n))
+  alert(pow1(x,n))
 }
 
 
 // solution
-function pow(x, n) {
+function pow2(x, n) {
   let result = 1;
   for (let i = 0; i < n; i++) { result *= x; };
   return result;
@@ -65,4 +69,4 @@ let n2 = prompt('n?', '');
 if (n <= 0) {
   alert(`Степень ${n2} не поддерживается, 
       введите целую степень, большую 0`);
-} else { alert( pow(x, n) ) };
+} else { alert( pow2(x, n) ) };

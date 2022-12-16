@@ -86,16 +86,16 @@ const comments = [
 const mergeArrays = (users, posts, comments) => {
   return posts.map( (post) => {
     const userName = users.find( (item) => item.id === post.userId).name;
-    const comentsCount = comments.filter( (item) => item.postId === post.id).length;
+    const commentsCount = comments.filter( (item) => item.postId === post.id).length;
     return {
       id: post.id,
       title: post.title,
       userName,
-      comentsCount,
+      commentsCount,
     };
   });
 };
-// console.log(mergeArrays(users, posts, comments));
+console.log(mergeArrays(users, posts, comments));
 
 
 
@@ -172,7 +172,7 @@ const data = [
 ];
 
 /* Output
-     20'
+    20
 */
 
 // Solution:

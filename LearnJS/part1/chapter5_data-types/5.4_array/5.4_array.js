@@ -1,6 +1,6 @@
 // https://learn.javascript.ru/array
 
-// Массив это контейнер для упорядоченных данных, в отличии от объекта вместо ключей индекс
+// Массив это контейнер для упорядоченных данных, в отличие от объекта вместо ключей индекс
   // Внутрь кладется любой тип данных
     // не стоит класть разные типы и оставлять много пустых ячеек между в массиве, тк это убивает преимущества движка в области памяти
 
@@ -18,8 +18,8 @@ const arrr = [1, 2, 3];
 function arrMakingOf(...primitives) {
   return Array.of(primitives)
 }
-console.log(arrr);                                              // Output: [ 1, 2, 3 ]
-console.log(Array(5));                                          // Output: [ <5 empty items> ]
+console.log(arrr);                                                       // Output: [ 1, 2, 3 ]
+console.log(Array(5));                                         // Output: [ <5 empty items> ]
 console.log(arrMakingOf(10, 20, 30, 40, 50, 60));               // Output: [ 10, 20, 30, 40, 50, 60 ]
 console.log(Array.from( {
     name: 'object',
@@ -62,7 +62,7 @@ console.log(arr);      // Output: ['yo','bitch','-replaced-','shot','flex',<2 em
 
 // Если нужно обратиться к эл-ту с конца - `arr.at()`
   // Квадратные скобки читают -1 буквально, `.at()` копирует обращение как из методов строки
-console.log(arr[-1]);         // Output: undefined
+console.log(arr[-1]);               // Output: undefined
 console.log(arr.at(-1));      // Output: -added-
 
 

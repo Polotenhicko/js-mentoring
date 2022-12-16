@@ -17,7 +17,20 @@ console.log(unite([1, 2, 3], [4, 5, 6], [7, 8, 9]));        // Output: [ [ 1, 2,
 
 // Task 3
 // Реализуйте функцию merge, параметрами принимающую произвольное количество массивов и сливающую их элементы в один массив.
+debugger
 const merge = function (...arrs) {
-  return arrs.flat(1);
-};
-console.log(merge([1, 2, 3], [4, 5, 6], [7, 8, 9]));        // Output: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  let flatValues = [];
+  arrs.forEach(el => {
+
+      el.forEach(e => {
+        if (typeof e === 'object' && e != null) {
+          flatValues = flatValues.concat(merge(e));
+        } else {
+          flatValues.push(e);
+        }
+      })
+
+  })
+  return flatValues;
+}
+console.log(merge([1, [2, 3]], [4, [5, [6]]], [7, 8, 9]));        // Output: [1, 2, 3, 4, 5, 6, 7, 8, 9]

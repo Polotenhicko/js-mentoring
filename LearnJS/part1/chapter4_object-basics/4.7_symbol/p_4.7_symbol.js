@@ -18,3 +18,4 @@ obj2[symbol2] = 'this is symbol2 prop';
 
 Object.getOwnPropertySymbols(obj2).forEach(symbol => obj2[symbol] = 'rewrited');
 console.log(obj1, obj2);                                                        // Output: obj1 без изменений - содержимое не зависит от имени
+

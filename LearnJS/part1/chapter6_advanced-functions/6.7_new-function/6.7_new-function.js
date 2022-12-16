@@ -18,3 +18,11 @@ function foo1() {
 }
 // console.log(foo1()());     // ReferenceError: value is not defined
 // Такая особенность вынуждена из-за возможных проблем с минификаторами - алгоритмами, минифицирующими код и подменяющими имена переменных на более короткие
+
+
+// Важно понимать, что this при таком определении ведет себя, как обычно - ссылается на объект, в котором объявлена функция
+const obj = {
+  name:  'obj',
+  method: new Function('console.log(this)'),      // Output: { name: 'obj', method: [Function: anonymous] }   -  не глобал
+}
+obj.method();

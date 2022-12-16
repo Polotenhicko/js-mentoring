@@ -22,8 +22,7 @@ console.log(newMap.keys());     // Output:  [Map Iterator] { 'first key', 'secon
 const newObj = {a: 2, b: 1, c: 0};
 console.log(newObj, ' ',
     Object.fromEntries(
-        Object.entries(newObj)
-            .sort((prop1, prop2) => prop1[1] - prop2[1])
+        Object.entries(newObj).sort((prop1, prop2) => prop1[1] - prop2[1])
     )
 );          // Output: { a: 2, b: 1, c: 0 }   { c: 0, b: 1, a: 2 } (создан новый отсортированный объект)
 
@@ -52,6 +51,6 @@ let user = {
   age: 30
 };
 const count = function (user) {
-  return Object.entries(user).length
+  return Object.entries(user).length;
 };
 console.log(count(user));     // Output: 2

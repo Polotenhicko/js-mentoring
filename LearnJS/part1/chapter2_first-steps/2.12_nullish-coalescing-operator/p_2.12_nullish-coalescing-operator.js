@@ -1,3 +1,4 @@
+// Task 1
 let something = null;
 console.log(something ?? 'nothing');   // Output: 'nothing'
 

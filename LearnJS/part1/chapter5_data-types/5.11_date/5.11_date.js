@@ -1,7 +1,9 @@
 // https://learn.javascript.ru/date
 
 // Лучше использовать api - day.js, moment.js
-// Intl.dateTimeFormat - для форматирования даты
+// Intl.dateTimeFormat() - интернациональный конструктор для форматирования даты (https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat)
+
+
 
 // Date(year, month, date?, hours?, minutes?, seconds?, ms?) создает структуру данных для работы с датой и временем
 const now = new Date();
@@ -101,22 +103,8 @@ console.log(dadatata.toLocaleString());   // Output: 20.02.2012, 03:12:00
 // Task 2
 // Напишите функцию getWeekDay(date), показывающую день недели в коротком формате: «ПН», «ВТ», «СР», «ЧТ», «ПТ», «СБ», «ВС».
 const getWeekDay = function (date) {
-  switch (date.getDay()) {
-    case 0:
-      return 'ВС';
-    case 1:
-      return 'ПН';
-    case 2:
-      return 'ВТ';
-    case 3:
-      return 'СР';
-    case 4:
-      return 'ЧТ';
-    case 5:
-      return 'ПТ';
-    case 6:
-      return 'СБ';
-  }
+  const days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+  return days[date.getDay()];
 };
 console.log(getWeekDay(dadatata));       // Output: ПН
 console.log(getWeekDay(date2));          // Output: ПТ

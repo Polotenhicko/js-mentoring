@@ -1,5 +1,5 @@
 // Task 1
-// Создать объект, в котором будет метод с вложенной функией, которая будет ссылаться на имя объекта. Далее скопировать метод в другой объект, чтобы работало.
+// Создать объект, в котором будет метод с вложенной функцией, которая будет ссылаться на имя объекта. Далее скопировать метод в другой объект, чтобы работало.
 const obj = {
   title: 'main obj',
   getTitle() {
@@ -109,7 +109,7 @@ const data2 = { a: 1, b: 2, c: 3 };
 
 // const isEmpty = (object) => {
 //   for (const k in object) {
-//     if (object[k] !== undefined && object[k] !== '' && object[k] !== null && object[k] !== NaN) {
+//     if (object[k] !== undefined && object[k] !== '' && object[k] !== null) {
 //       return false;
 //     }
 //   }
@@ -177,7 +177,7 @@ const data8 = { a: { b: [1, 2, 3] } }
 // console.log(invoke(data8, 'a.b', 'splice', [1, 2])); // [2, 3]
 
 
-// Task 8 - не выполнил, оставляю до рекурсии
+// Task 8
 /**
   * Описание задачи: Напишите функцию, которая делает глубокую проверку на пустоту объекта.
   * Пустые значения: '', null, NaN, undefined, [], {}
@@ -188,15 +188,21 @@ const data8 = { a: { b: [1, 2, 3] } }
   * @param {Object} object - любой объект
   * @returns {boolean}
 */
-
 const isEmptyDeep = (object) => {
-  
+  for (const k in object) {
+    if (typeof object[k] === 'object' && object[k] !== null) {
+      return isEmptyDeep(object[k]);
+    } else if (object[k] !== undefined && object[k] !== '' && object[k] !== null) {
+      return false;
+    }
+  }
+  return true;
 };
 
 const data9 = { a: { b: undefined } };
 const data10 = { a: { b: 1 } };
-// console.log(isEmptyDeep(data9)); // true
-// console.log(isEmptyDeep(data10)); // false
+console.log(isEmptyDeep(data9)); // true
+console.log(isEmptyDeep(data10)); // false
 
 
 // Task 9 - не выполнил, оставляю до рекурсии
@@ -207,12 +213,13 @@ const data10 = { a: { b: 1 } };
   * @param {Object} secondObj - Объект с любыми значениями
   * @returns {boolean}
 */
-const isEqualDeep = (element) => {
-  
-};
-const data11 = { a: 1, b: { c: 1 } };
-const data12 = { a: 1, b: { c: 1 } };
-const data13 = { a: 1, b: { c: 2 } };
+// const isEqualDeep = (firstObj, secondObj) => {
+//
+// };
+// const data11 = { a: 1, b: { c: 1 } };
+// const data12 = { a: 1, b: { c: 1 } };
+// const data13 = { a: 1, b: { c: 2 } };
+// console.log('============');
 // console.log(isEqualDeep(data11, data12)); // true
 // console.log(isEqualDeep(data11, data13)); // false
 

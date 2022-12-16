@@ -3,7 +3,6 @@
 // ` let func = (...args) => expression; ` - лаконичный function expression
 // если 1 arg - можно без скобок, если 0 - скобки пустые
 // если нужна функция в несколько строк исп. {} и return не сокращается
-
 function fnArrowAnonimous(fn, fn2) {
   return 'hello it\'s ' + fn() + '\n' + 'hello it\'s ' + fn2();
 }
@@ -12,6 +11,8 @@ console.log(fnArrowAnonimous(
   () => 'anonimous arrow function2'
   )
 )
+
+// У стрелочных функций нет this и arguments
 
 // ---------------------------------------------------------------------------------------------------------------------
 
