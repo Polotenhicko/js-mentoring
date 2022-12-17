@@ -47,8 +47,7 @@ arrExample.shift();
 console.log(arrExample[0].a);         // Output: 2
 
 let linkedListExample = {a: 1, next: {a: 2, next: {a: 3, next: {a: 4, next: null}}}};
-linkedListExample = linkedListExample.next;
-console.log(linkedListExample.a);     // Output: 2
+console.log(linkedListExample.next.a);     // Output: 2
 
 
 

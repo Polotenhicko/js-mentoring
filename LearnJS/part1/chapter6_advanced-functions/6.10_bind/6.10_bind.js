@@ -1,6 +1,6 @@
 // https://learn.javascript.ru/bind
 
-// Если передавать метод с this в логике как колбэк, то потеряется контекст.
+// Если передавать как колбэк метод с `this` в логике, то потеряется контекст.
 // Чтобы его привязать используется `bind(this, ...args)()`, `call(this, ...args)`, `apply(this, ...args)`
 let user = {
   name: 'Vova',
@@ -22,10 +22,12 @@ let user11 = {
 user11.g();         // Output: globalThis
 
 
-// Также можно запихнуть выполнение в анонимную функцию, тогда сработает замыкание на объекте.
-// (!) Но такой метод имеет уязвимость - если мы перезапишем объект во время вызова (зайдет другой пользователь), то мы получим ошибку
+// Есть второй метод - можно запихнуть выполнение в анонимную функцию, тогда у выполняющейся функции сработает замыкание на объекте.
+// (!) Этот метод имеет уязвимость - если мы перезапишем объект во время вызова (зайдет другой пользователь), то мы получим ошибку
+
 setTimeout(() => user.getName(), 0);      // Output: 'Vova'
-setTimeout(() => user = null, 1);
+
+setTimeout(() => user = null, 1);         // Перезаписываем объект чтобы показать уязвимость
 // setTimeout(() => user.getName(), 1000);              // TypeError: Cannot read properties of null (reading 'getName')
 
 
@@ -54,10 +56,10 @@ console.log(
 );
 
 
-// Если нужно зафиксировать аргументы без фиксации this, то придется создать функцию внутри функции со ссылкой на this
-function partial(func, ...argsBound) {
+// Если нужно зафиксировать аргументы без фиксации this, то придется создать функцию внутри функции со ссылкой на this, чтобы фиксировать, не передавая в нее this
+function partial(func, ...argsBound) {                // не принимаем this
   return function (...args) {
-    return func.call(this, ...argsBound, ...args);
+    return func.call(this, ...argsBound, ...args);    // this вложенной функции будет ссылаться на родительский объект (где функция объявлена)
   }
 }
 
@@ -68,8 +70,8 @@ const obj = {
   },
 };
 
-obj.sayNow = partial(obj.say, new Date().getHours() + ':' + new Date().getMinutes());
-obj.sayNow('Hello');
+obj.sayNow = partial(obj.say, new Date().getHours() + ':' + new Date().getMinutes());   // Создали новый метод объекта с зафиксированными аргументами
+obj.sayNow('Hello');              // Output : [13:34] - Petya: Hello
 
 
 

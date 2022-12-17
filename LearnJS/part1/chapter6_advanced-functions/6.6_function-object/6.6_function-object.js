@@ -10,8 +10,9 @@ console.log(foo.name);            // Output: 'foo'
 const fooArrow = () => 'arrow gaga';
 console.log(fooArrow.name);       // Output: 'fooArrow'
 
-// Логично, что имена также имеют методы объекта
+// Методы объекта также имеют имена
 const obj = {
+  counter: 10000,
   methodExample() {
     return 'it\'s a method';
   },
@@ -42,6 +43,20 @@ foo3();
 foo3();
 foo3();
 console.log(`total foo3 calls: ${foo3.counter}`);      // Output: 'total foo3 calls: 3'
+
+
+// Если поменять функции контекст, то св-ва не передадутся
+const obj3 = {
+  counter: 9999,
+};
+let foo6 = foo3;
+console.log(foo6.counter);              // Output: 3              - Все норм, тут мы не меняем контекст, ссылка та же
+
+foo6 = foo6.bind(obj3);
+console.log(foo6.counter);              // Output: undefined      - Поменяли контекст - св-ва обнулились (и это не св-во объекта)
+
+foo6.counter = 1000;
+console.log(foo6.counter);              // Output: 1000           - Присвоили новое значение св-ву
 
 
 

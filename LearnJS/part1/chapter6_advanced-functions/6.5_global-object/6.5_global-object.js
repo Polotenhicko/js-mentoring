@@ -10,11 +10,11 @@ globalThis.console.log('console.log св-во globalThis');       // Output: 'co
 var gVar = 100;
 console.log(globalThis.gVar);           // Output: 100 (но только в браузере, в node.js Output: undefined)
 
-// То же самое касается Function Declaration
+// То же в браузере самое касается Function Declaration (в node.js )
 function gFunc() {
   return 'Function Declaration in browser declared as global prop'
 }
-// console.log(globalThis.gFunc());     // Output: 'Function Declaration in browser declared as global prop'
+// console.log(globalThis.gFunc);     // Output: 'Function Declaration in browser declared as global prop' (но только в браузере, в node.js Output: undefined)
 
 // В целом, это устаревший синтаксис, поэтому пользоваться им не надо.
 // При необходимости записать что-то как св-во глобала, можно через let/const как в обычный объект:

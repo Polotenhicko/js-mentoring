@@ -4,7 +4,7 @@
 setTimeout((x) => console.log(x), 1000, 'resolved');     // Output: 'resolved' (after 1 sec)
 
 
-// Если вложить setTimeout в setTimeout, то вложенный запланируется сразу после выполнения предыдущего
+// Если вложить setTimeout в setTimeout, то вложенный запланируется сразу после выполнения предыдущего. Если вложенность большая - используются промисы
 setTimeout(function () {
   console.log('timeout');                                                       // Output: 'timeout' (after 2 sec)
   setTimeout(() => console.log('nested timeout'), 2000);         // Output: 'nested timeout' (after 4 sec)
@@ -20,6 +20,9 @@ console.log(+timeout);         // Output: 6 (asyncId)
 // `clearTimeout(timeout)` - отменить запланированное событие, если таймаут больше не нужен (выполнился), обязательно нужно отменять, тк функция остается в памяти
 clearTimeout(timeout);
 
+// `clearInterval(interval)` - остановить циклические вызовы
+setTimeout(() => clearInterval(interval), 5000);
+
 // Когда функция передается в setTimeout\setInterval, на нее создается ссылка в планировщике, то есть таймаут в любом случае выполнится, даже если перезаписать его переменную
 
 
@@ -31,9 +34,9 @@ setTimeout(() => console.log('async starts...'), 0);
 // то есть после 5 вызовов, последующие будут с интервалом минимум 4 мс
 
 
-// Зациклив setTimeout можно получить функционал setInterval, но есть отличия -
-// setTimeout не считает время на выполнение функции, он делает фиксированную задержку от завершенной функции до вызова следующей
-// setInterval учитывает время на выполнение, он делает фиксированную задержку от вызова функции до вызова следующей
+// ЗАЦИКЛИВ setTimeout можно получить функционал setInterval, но есть отличия -
+// цикл. setTimeout не учитывает время на выполнение функции, он делает фиксированную задержку от завершенной функции до вызова следующей ( -__ --__ -__ --__ )
+// setInterval учитывает время на выполнение, он компенсирует задержку от исполнения функции, сокращая время до вызова следующей  ( --_ -__ --_ -__ )
 function recursionTimeout() {
   setTimeout(function () {
     console.log('recursionTimeout');
@@ -45,12 +48,13 @@ recursionTimeout();
 
 
 
-// ---------------------------------------------------------------------------------------------------------------------
-// `setInterval(fn, interval = 0, ...args?)`    - Будет вызывать fn(...args) через каждые delay мсек
-const interval = setInterval((x) => console.log(x), 1000, 'cycled');     // Output: 'cycled' (every 1 sec)
+// В setTimeout\setInterval можно передать аргументы для fn
 
-// `clearInterval(interval)` - остановить циклические вызовы
-setTimeout(() => clearInterval(interval), 5000);
+// `setInterval(fn, interval = 0, ...args?)`    - Будет вызывать fn(...args) через каждые interval мсек
+const interval = setInterval((x) => console.log(x), 1000, 'argumented interval');     // Output: 'argumented interval' (every 1 sec)
+
+// `setTimeout(fn, delay = 0, ...args?)`    - Вызовет fn(...args) после delay мсек
+const timeout2 = setTimeout((x) => console.log(x), 1000, 'argumented timeout');       // Output: 'argumented timeout' (after 1 sec)
 
 
 

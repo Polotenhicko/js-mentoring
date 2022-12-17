@@ -37,7 +37,7 @@ sendMessage.bind(user, ': Hello', 'nice', 'bind')();
 sendMessage.apply(user, [': Hello', 'nice', 'apply']);
 
 
-// С помощью `.bind()()` `.apply()` `.call()` можно заимствовать любые методы
+// С помощью `.bind()()` `.apply()` `.call()` можно заимствовать методы любого типа любому типу
 const pseudoArr = {
   0: 1,
   1: 2,
