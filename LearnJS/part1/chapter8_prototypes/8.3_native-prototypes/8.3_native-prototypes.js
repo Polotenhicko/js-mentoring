@@ -1,5 +1,8 @@
 // https://learn.javascript.ru/native-prototypes
 
+// (!) Изменение [[Prototype]] объекта обширно влияет на производительность кода.
+// Вместо этого лучше создать объект с нужным [[Prototype]] через `Object.create(prototype, ...props?)`
+
 
 // Когда мы создаем объект, его [[Prototype]] ссылается на конструктор - встроенный прототип, тк он лежит в Object.prototype
 const obj = {};

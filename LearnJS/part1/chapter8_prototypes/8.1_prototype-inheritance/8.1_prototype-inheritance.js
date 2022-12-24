@@ -9,8 +9,8 @@
 // (!) Изменение [[Prototype]] объекта обширно влияет на производительность кода.
 // Вместо этого лучше создать объект с нужным [[Prototype]] через `Object.create(prototype, ...props?)`
 
-// С помощью св-ва `__proto__` можно задать/изменить [[Prototype]]   (`__proto__` это геттер/сеттер для [[Prototype]])
-// Также можно задать [[Prototype]] с помощью `Object.setPrototypeOf(obj, prototype)` и узнать его с помощью `Object.getPrototypeOf(obj)`
+// С помощью свойства-асессора `__proto__` можно задать/изменить [[Prototype]]   (`__proto__` это геттер/сеттер для [[Prototype]])
+// `__proto__` - это УСТАРЕВШИЙ СИНТАКСИС. Также можно задать [[Prototype]] с помощью `Object.setPrototypeOf(obj, prototype)` и узнать его с помощью `Object.getPrototypeOf(obj)`
 const animal = {
   eats: true,
 };
