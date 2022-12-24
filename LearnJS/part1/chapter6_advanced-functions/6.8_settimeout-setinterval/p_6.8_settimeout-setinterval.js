@@ -268,8 +268,32 @@ function Microwave() {
 }
 
 const microwave = new Microwave();
-microwave.open()
-    .plugIn()
-    .addTime(15)
-    .putFood('kasha')
-    .close();
+// microwave.open()
+//     .plugIn()
+//     .addTime(15)
+//     .putFood('kasha')
+//     .close();
+
+
+
+// Task 2
+// Написать функцию, которая будет считать свои вызовы и если вызовов не будет в течении 2х сек с момента предыдущего вызова, будет их возвращать
+const callCounter = function () {
+  if (!callCounter.counter) {
+    callCounter.counter = 0;
+  }
+  if (callCounter.counter > 0) {
+    clearTimeout(callCounter.callDelay);
+  }
+
+  callCounter.callDelay = setTimeout(() => {
+    console.log(callCounter.counter);
+    callCounter.counter = 0;
+  }, 2000);
+
+  callCounter.counter++;
+};
+
+callCounter();
+callCounter();
+callCounter();

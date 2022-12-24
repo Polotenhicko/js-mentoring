@@ -19,6 +19,7 @@ subObj.getTitle = obj.getTitle;
 
 
 // Все задачи ниже взяты из https://github.com/andrewborisov/javascript-practice/tree/master/objects/exercises
+
 // Task 2
 /**
   * Описание задачи: Напишите функцию, которая проверяет, является ли элемент именно простым объектом, а не массивом, null и т.п.

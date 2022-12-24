@@ -54,3 +54,19 @@ func4('Иванов', 'Иван');      // Output: 'привет, Иванов �
 func4('Петров', 'Петр');      // Output: 'привет, Петров Петр'
 
 
+
+// Task 5
+// Создать функцию, которая запоминает переданные в нее числа и суммирует их когда аргументы не передаются.
+let rememberSum = (...args) => {
+  if (args.length === 0) {
+    return 'no args';
+  }
+  if (args.length === rememberSum.previousArgsLength) {
+    return args.reduce((sum, e) => sum + e, 0);
+  }
+  rememberSum.previousArgsLength = args.length;
+  return rememberSum.bind(this, ...args);
+};
+
+console.log(rememberSum(1,2,3)(1,2,3)(1,2,3)());
+console.log(rememberSum(1,2,3)(1,2,3)(1,2,3)());

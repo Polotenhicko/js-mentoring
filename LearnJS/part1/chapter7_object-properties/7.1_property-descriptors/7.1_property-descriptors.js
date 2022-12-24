@@ -1,6 +1,6 @@
 // https://learn.javascript.ru/property-descriptors
 
-// У каждого св-ва объекта есть объект-дескриптор, в нем значение св-ва и 3 флага(разрешения) для св-ва - writable, enumerable, configurable.
+// У каждого св-ва объекта есть объект-дескриптор, в нем значение св-ва и флаги(разрешения для св-ва) - writable, enumerable, configurable.
 
 // writable = true       -  можно перезаписывать св-во
 // enumerable = true     -  циклы могут перечислить св-во
@@ -8,19 +8,19 @@
 
 
 // Когда мы создаем св-во, по-умолчанию все дескрипторы в положении true.
-// Получить дескрипторы св-ва можно с помощью Object.getPropertyDescriptor(obj, 'prop')
+// Получить дескрипторы св-ва можно с помощью Object.getOwnPropertyDescriptor(obj, 'prop')
 const obj = {
   name: 'obj',
   message: 'Hello',
 };
 console.log(Object.getOwnPropertyDescriptor(obj, 'name'));             // Output: { value: 'obj', writable: true, enumerable: true, configurable: true }
 
-// Получить дескрипторы всех св-в объекта можно с помощью Object.getPropertyDescriptors(obj, ...'props')
+// Получить дескрипторы всех св-в объекта можно с помощью Object.getOwnPropertyDescriptors(obj, ...'props')
 console.log(Object.getOwnPropertyDescriptors(obj));             // Output: { name: { value: 'obj', writable: true, enumerable: true, configurable: true}, message: { value: 'Hello', writable: true, enumerable: true, configurable: true } }
 
 
 
-// Для изменения флагов есть метод Object.defineProperty(obj, 'prop', descriptor)
+// Для изменения флагов есть метод Object.defineProperty(obj, 'prop', descriptor) (определить св-во)
 Object.defineProperty(obj, 'name', {value: 'renamed'});
 console.log(Object.getOwnPropertyDescriptor(obj, 'name'));             // Output: { value: 'renamed', writable: true, enumerable: true, configurable: true }
 
