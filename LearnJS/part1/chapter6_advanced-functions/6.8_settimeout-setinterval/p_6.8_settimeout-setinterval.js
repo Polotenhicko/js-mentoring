@@ -297,3 +297,26 @@ const callCounter = function () {
 callCounter();
 callCounter();
 callCounter();
+
+
+
+// Task 3
+// Покурить тонкости выполнения timeout и interval через performance.now
+const startTime = performance.now();
+
+// setTimeout(() => {
+//   console.log(`Operation time: ${performance.now() - startTime}`);
+// }, 3000);
+// setInterval(() => {
+//   console.log(`Operation time: ${performance.now() - startTime}`);
+// }, 3000);
+
+let i = 0;
+while (i < 100000) {
+  i++;
+  console.log(Math.random());
+}
+
+// Итоги
+// Если вызывать короткий таймаут или интервал перед долгим циклом, то таймаут выполнится СРАЗУ как только завершится цикл
+// Если вызывать короткий таймаут или интервал после долгого цикла, то таймаут выполнится спустя время таймаута после завершения цикла
