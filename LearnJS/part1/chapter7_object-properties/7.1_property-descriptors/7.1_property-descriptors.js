@@ -15,7 +15,7 @@ const obj = {
 };
 console.log(Object.getOwnPropertyDescriptor(obj, 'name'));             // Output: { value: 'obj', writable: true, enumerable: true, configurable: true }
 
-// Получить дескрипторы всех св-в объекта можно с помощью Object.getOwnPropertyDescriptors(obj, ...'props')
+// Получить дескрипторы всех св-в объекта можно с помощью Object.getOwnPropertyDescriptors(obj, ...'props'?)
 console.log(Object.getOwnPropertyDescriptors(obj));             // Output: { name: { value: 'obj', writable: true, enumerable: true, configurable: true}, message: { value: 'Hello', writable: true, enumerable: true, configurable: true } }
 
 
