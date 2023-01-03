@@ -30,7 +30,7 @@ const descriptor = Object.getOwnPropertyDescriptor(obj, 'property');
 console.log(JSON.stringify(descriptor));                                 // Output: {"value":"defineProperty prop","writable":false,"enumerable":false,"configurable":false}
 
 // Метод изменения/создания нескольких св-в - Object.defineProperties( obj, {'prop1': {descriptor}, 'prop2': {descriptor}} )
-Object.defineProperties(obj, {'method': {value: () => console.log('hello')}, name: {value: 'twice renamed'}});
+Object.defineProperties(obj, {'method': {value: () => console.log('hello')}, 'name': {value: 'twice renamed'}});
 console.log(obj);   // Output: { name: 'twice renamed', message: 'Hello' }
 obj.method();       // Output: 'hello'
 

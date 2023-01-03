@@ -68,5 +68,5 @@ let rememberSum = (...args) => {
   return rememberSum.bind(this, ...args);
 };
 
-console.log(rememberSum(1,2,3)(1,2,3)(1,2,3)());
-console.log(rememberSum(1,2,3)(1,2,3)(1,2,3)());
+console.log(rememberSum(1,2,3)(1,2,3)(1,2,3)());    // Output: 18
+console.log(rememberSum(1,2,3)(1,2,3)());           // Output: 12

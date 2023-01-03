@@ -5,15 +5,6 @@
 //  Также класс должен иметь метод getCourse(), который будет выводить текущий курс студента (от 1 до 5).
 //  Курс вычисляется так: нужно от текущего года отнять год поступления в вуз. Текущий год получите самостоятельно.
 
-// Вот так должен работать наш класс:
-
-var student = new Student('Иван', 'Иванов', 2019);
-
-console.log(worker.name);             //выведет 'Иван'
-console.log(worker.surname);          //выведет 'Иванов'
-console.log(worker.getFullName());    //выведет 'Иван Иванов'
-console.log(worker.year);             //выведет 2019
-console.log(worker.getCourse());      //выведет 3 - третий курс, так как текущий год 2022
 
 // Вот так должен выглядеть класс User, от которого наследуется наш Student:
 class User {
@@ -26,3 +17,28 @@ class User {
     return this.name + ' ' + this.surname;
   }
 }
+
+class Student extends User {
+  constructor(name, surname, year) {
+    super(name, surname);
+    this.year = year;
+  }
+
+  getCourse() {
+    console.log(
+        new Date().getFullYear(),
+        new Date(this.year).getFullYear(),
+    );
+    return new Date().getFullYear() - new Date('' + this.year).getFullYear();
+  }
+}
+
+// Вот так должен работать наш класс:
+
+const student = new Student('Иван', 'Иванов', 2019);
+
+console.log(student.name);             // Output: 'Иван'
+console.log(student.surname);          // Output: 'Иванов'
+console.log(student.getFullName());    // Output: 'Иван Иванов'
+console.log(student.year);             // Output: 2019
+console.log(student.getCourse());      // Output: 4 - четвертый курс, так как текущий год 2023

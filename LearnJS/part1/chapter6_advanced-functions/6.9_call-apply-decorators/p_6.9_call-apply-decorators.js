@@ -12,6 +12,7 @@ sum = ultimateResult(sum);
 console.log(sum(5, 10));    // Output: 'пук...' 15
 
 
+
 // Task 2
 // Реализовать декоратор errorCatcher(func), который оборачивает функцию в try catch и дефолтный обработчик + записывает в свое св-во название ошибки.
 const errorNameCatcher = function func(f) {
