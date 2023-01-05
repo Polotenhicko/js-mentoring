@@ -15,7 +15,7 @@ User.staticMethod1();     // Output: 'this is basic method'
 
 
 
-// Статические св-ва и методы наследуются
+// (!) Статические св-ва и методы наследуются
 class Jopa extends User {}
 
 Jopa.basicMethod2();      // Output: 'this is basic method 2'
