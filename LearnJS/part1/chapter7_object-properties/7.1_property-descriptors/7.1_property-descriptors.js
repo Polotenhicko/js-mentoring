@@ -7,6 +7,7 @@
 // configurable = true   -  св-во возможно удалить и менять его дескрипторы (дорога в один конец)
 
 
+
 // Когда мы создаем св-во, по-умолчанию все дескрипторы в положении true.
 // Получить дескрипторы св-ва можно с помощью Object.getOwnPropertyDescriptor(obj, 'prop')
 const obj = {
@@ -16,7 +17,7 @@ const obj = {
 console.log(Object.getOwnPropertyDescriptor(obj, 'name'));             // Output: { value: 'obj', writable: true, enumerable: true, configurable: true }
 
 // Получить дескрипторы всех св-в объекта можно с помощью Object.getOwnPropertyDescriptors(obj, ...'props'?)
-console.log(Object.getOwnPropertyDescriptors(obj));             // Output: { name: { value: 'obj', writable: true, enumerable: true, configurable: true}, message: { value: 'Hello', writable: true, enumerable: true, configurable: true } }
+console.log(Object.getOwnPropertyDescriptors(obj));                       // Output: { name: { value: 'obj', writable: true, enumerable: true, configurable: true}, message: { value: 'Hello', writable: true, enumerable: true, configurable: true } }
 
 
 
@@ -24,27 +25,30 @@ console.log(Object.getOwnPropertyDescriptors(obj));             // Output: { nam
 Object.defineProperty(obj, 'name', {value: 'renamed'});
 console.log(Object.getOwnPropertyDescriptor(obj, 'name'));             // Output: { value: 'renamed', writable: true, enumerable: true, configurable: true }
 
+
 // Если создать св-во с помощью `Object.defineProperty()`, все неуказанные в дескрипторе флаги по умолчанию будут false
 Object.defineProperty(obj, 'property', {value: 'defineProperty prop'});
 const descriptor = Object.getOwnPropertyDescriptor(obj, 'property');
-console.log(JSON.stringify(descriptor));                                 // Output: {"value":"defineProperty prop","writable":false,"enumerable":false,"configurable":false}
+console.log(JSON.stringify(descriptor));                                  // Output: {"value":"defineProperty prop","writable":false,"enumerable":false,"configurable":false}
+
 
 // Метод изменения/создания нескольких св-в - Object.defineProperties( obj, {'prop1': {descriptor}, 'prop2': {descriptor}} )
 Object.defineProperties(obj, {'method': {value: () => console.log('hello')}, 'name': {value: 'twice renamed'}});
-console.log(obj);   // Output: { name: 'twice renamed', message: 'Hello' }
-obj.method();       // Output: 'hello'
+console.log(obj);                                                         // Output: { name: 'twice renamed', message: 'Hello' }
+obj.method();                                                             // Output: 'hello'
 
 
 
 // Для полного копирования объекта с дескрипторами можно использовать связку Object.defineProperties(Object.getOwnPropertyDescriptors(obj))
 const objClone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
-console.log(objClone);      // Output: { name: 'twice renamed', message: 'Hello' }
+console.log(objClone);                                                    // Output: { name: 'twice renamed', message: 'Hello' }
 
 
 
 // Ошибки связанные с разрешениями флагов невидимы без 'use strict', но при этом работа флагов не нарушается
 obj.property = 10;
-console.log(obj.property);        // Output: 'defineProperty prop'
+console.log(obj.property);                                                // Output: 'defineProperty prop'
+
 
 
 // Также есть методы, работающие сразу со всеми дескрипторами в объекте

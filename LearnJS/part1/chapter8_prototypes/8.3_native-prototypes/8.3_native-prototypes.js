@@ -11,22 +11,21 @@ console.log(obj.__proto__ === Object.prototype);  // Output: true
 
 
 
-// Создание любого типа данных происходит через конструктор встроенный прототип этого типа.
-//        null
-//          |
-//       Object
-//          |
-//        / | \
-//       /  |  \
-//      /   |   \
-// Array Function Number
+// Создание любого типа данных происходит через встроенный прототип этого типа (конструктор).
+//         null
+//           |
+//        Object
+//         / |  \
+//        /  |   \
+//      /    |     \
+// Array  Function  Number
 const arr = [];
 console.log(arr.__proto__);             // Output: Object(0) []                   (встроенный прототип Array)
 console.log(arr.__proto__.__proto__);   // Output: [Object: null prototype] {}    (встроенный прототип Object)
 
 
 
-// Когда мы обращаемся к св-вам примитивов, на 1 шаг примитив оборачивается во встроенный прототип и возвращает св-во.
+// Когда мы обращаемся к св-вам примитивов, на один шаг примитив оборачивается во встроенный прототип и возвращает св-во.
 const str = 'Olala';
 console.log(str.charAt(4));             // Output: 'a'
 console.log(str.__proto__);             // Output: {}                             (встроенный прототип String)

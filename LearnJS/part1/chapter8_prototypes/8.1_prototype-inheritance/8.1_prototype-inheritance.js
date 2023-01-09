@@ -30,9 +30,9 @@ const longEar = {
 };
 console.log(longEar.eats);  // Output: true
 
-
 // (!) Ссылки не могут идти по-кругу
 // animal.__proto__ = longEar;       // TypeError: Cyclic __proto__ value
+
 
 
 // Объект обращается к [[Prototype]] только для чтения - нельзя перезаписать или удалить св-во прототипа через объект-наследник

@@ -30,7 +30,7 @@ new User('Kek').sayHi();              // Output: 'Hi, Kek'
 // При этом можно пользоваться `super` для обращения к родительской примеси - методы ищутся в прототипе примеси, а не класса.
 // тк `super` обращается к `[[HomeObject]].[[Prototype]]` метода, а `[[HomeObject]]` всегда ссылается на объект, в котором объявлен метод.
 const sayByeMixin = {
-  __proto__: sayHiMixin,
+  __proto__: sayHiMixin,                    // Тут лучше использовать Object.create(proto, {descriptors})
 
   sayBye() {
     console.log(`Bye, ${this.name}`);

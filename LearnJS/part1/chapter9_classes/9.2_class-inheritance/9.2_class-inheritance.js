@@ -2,7 +2,7 @@
 
 // Классы могут быть созданы на базе других классов (наследованы) - с помощью `extends`
 // То есть у экземпляров, созданных наследником будет доступ к методам и св-вам родительского класса
-// Под капотом `extends` устанавливает `[[Prototype]]` у наследника на `родитель.prototype`
+// Под капотом `extends` устанавливает `[[Prototype]]` у конструктора-наследника на `конструктор-родитель.prototype`
 class Animal {
   constructor(name) {
     this.name = name
@@ -87,7 +87,7 @@ new Padavan();      // Output: Obi-Van     Luke
 // метод создается только с синтаксисом - `method() {}`,       `method: function() {}` - не работает, тк не создает св-во `[[HomeObject]]`
 const Telephone = {
   sayHi() {
-    console.log('я животное');
+    console.log('я телефон');
   }
 };
 const Buttons = {
@@ -98,14 +98,14 @@ const Buttons = {
 };
 const Computer = {
   sayHi() {
-    console.log('я растение');
+    console.log('я компьютер');
   }
 };
 const Keyboard = {
   __proto__: Computer,
   sayHi : Buttons.sayHi,
 };
-Keyboard.sayHi();           // Output: 'я животное'               (метод скопировался, но вызывает метод Telephone)
+Keyboard.sayHi();           // Output: 'я телефон'               (метод скопировался, но вызывает метод Telephone)
 
 
 
