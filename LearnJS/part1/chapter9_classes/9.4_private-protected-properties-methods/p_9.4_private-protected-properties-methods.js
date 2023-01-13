@@ -29,26 +29,26 @@ class Food {
     }
     this.name = name;
     console.log(`${name} created`);
-    this.temperatureCheck();
+    this.#temperatureCheck();
   }
   temperature = 23;
 
 
-  cooling = () => {
+  #cooling = () => {
     setTimeout(() => {
       if (this.temperature > 20) {
         this.temperature--;
-        this.cooling();
+        this.#cooling();
       } else {
-        this.temperatureCheck();
+        this.#temperatureCheck();
       }
     },4000)
   };
 
-  temperatureCheck = () => {
+  #temperatureCheck = () => {
     let tempCheck = setInterval(() => {
       if (this.temperature > 20) {
-        this.cooling();
+        this.#cooling();
         clearInterval(tempCheck);
       }
     }, 2000)
@@ -67,25 +67,16 @@ class Microwave {
   mode = 1;
   isWarmingUp = false;
 
-  #checkPluggedIn() {
-    if (this.isPluggedIn) {
-      console.log(`Can\'t do that - plug issues`);
-      return true;
-    }
+  #errPluggedIn() {
+    console.log(`Can\'t do that - plug issues`);
   }
 
-  #checkIsOpen() {
-    if (this.isOpen) {
-      console.log('Can\'t do that - door issues');
-      return true;
-    }
+  #errIsOpen() {
+    console.log('Can\'t do that - door issues');
   }
 
-  #checkContains() {
-    if (!this.contains) {
-      console.log('Can\'t do that - contains issues');
-      return true;
-    }
+  #errContains() {
+    console.log('Can\'t do that - contains issues');
   }
 
   #heating() {
@@ -109,7 +100,8 @@ class Microwave {
 
   // Включить микроволновку в розетку
   plugIn = () => {
-    if (!this.#checkPluggedIn()) {
+    if (this.isPluggedIn) {
+      this.#errPluggedIn();
       return this;
     }
 
@@ -120,7 +112,8 @@ class Microwave {
 
   // Выключить микроволновку из розетки
   unPlug = () => {
-    if (this.#checkPluggedIn()) {
+    if (!this.isPluggedIn) {
+      this.#errPluggedIn();
       return this;
     }
 
@@ -134,7 +127,8 @@ class Microwave {
 
   // Открыть дверцу микроволновки
   open = () => {
-    if (this.#checkIsOpen()) {
+    if (this.isOpen) {
+      this.#errIsOpen();
       return this;
     }
 
@@ -150,7 +144,8 @@ class Microwave {
 
   // Закрыть дверцу микроволновки
   close = () => {
-    if (!this.#checkIsOpen()) {
+    if (!this.isOpen) {
+      this.#errIsOpen();
       return this;
     }
 
@@ -161,10 +156,12 @@ class Microwave {
 
   // Положить еду в микроволновку (принимает строку названия еды)
   putFood = (food) => {
-    if (!this.#checkIsOpen()) {
+    if (!this.isOpen) {
+      this.#errIsOpen();
       return this;
     }
-    if (!this.#checkContains()) {
+    if (this.contains) {
+      this.#errContains();
       return this;
     }
     if (!food) {
@@ -185,10 +182,12 @@ class Microwave {
 
   // Вытащить еду из микроволновки
   getFood = () => {
-    if (this.#checkIsOpen()) {
+    if (!this.isOpen) {
+      this.#errIsOpen();
       return this;
     }
-    if (this.#checkContains()) {
+    if (!this.contains) {
+      this.#errContains();
       return this;
     }
 
@@ -199,7 +198,8 @@ class Microwave {
 
   // Задать время разогрева (принимает секунды)
   addTime = (seconds) => {
-    if (this.#checkPluggedIn()) {
+    if (!this.isPluggedIn) {
+      this.#errPluggedIn();
       return this;
     }
 
@@ -213,13 +213,16 @@ class Microwave {
 
   // Старт - запустить разогрев (Если время не выставлено, запускает разогрев на 30 сек; Если уже разогревается - добавляет 30 сек)
   start = () => {
-    if (this.#checkPluggedIn()) {
+    if (!this.isPluggedIn) {
+      this.#errPluggedIn();
       return this;
     }
-    if (this.#checkIsOpen()) {
+    if (this.isOpen) {
+      this.#errIsOpen();
       return this;
     }
-    if (this.#checkContains()) {
+    if (!this.contains) {
+      this.#errContains();
       return this;
     }
 
@@ -238,7 +241,8 @@ class Microwave {
 
   // Отмена - остановка разогрева или сброс времени разогрева
   cancel = () => {
-    if (this.#checkPluggedIn()) {
+    if (!this.isPluggedIn) {
+      this.#errPluggedIn();
       return this;
     }
 
@@ -254,7 +258,8 @@ class Microwave {
 
   // Смена режима (easy (x1) => medium (x2) => hard (x3))
   switchMode = () => {
-    if (this.#checkPluggedIn()) {
+    if (!this.isPluggedIn) {
+      this.#errPluggedIn();
       return this;
     }
 
