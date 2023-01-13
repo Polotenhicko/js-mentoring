@@ -51,7 +51,7 @@
 // Ответ: undefined - из экземпляра нельзя обращаться к статическим свойствам.
 
 
-//     4. Что будет в консоли? (!)(!)(!)
+//     4. Что будет в консоли?
 //      class Mama {
 //        method() {console.log(this, 'mama')}
 //      }
@@ -180,13 +180,13 @@
 // Ответ: true    true     TypeError: Array.is is not a function   - статические св-ва между встроенными конструкторами не наследуются
 
 
-//      11. Что будет в консоли
-//        class Zepa extends Array {
-//
-//          static get [Symbol.species]() {
-//            return Number;
-//          }
-//        }
+     // 11. Что будет в консоли
+     //   class Zepa extends Array {
+     //
+     //     static get [Symbol.species]() {
+     //       return Number;
+     //     }
+     //   }
 //
 //        const arr = new Zepa(10, 20, 30, 40, 50);
 //        console.log(arr.constructor);

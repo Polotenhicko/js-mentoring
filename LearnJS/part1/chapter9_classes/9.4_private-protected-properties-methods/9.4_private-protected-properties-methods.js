@@ -1,4 +1,4 @@
-// private-protected-properties-methods
+// https://learn.javascript.ru/private-protected-properties-methods
 
 // Внутренний интерфейс - методы и св-ва, доступные из других методов класса, но не снаружи.
 // Внешний интерфейс - методы и св-ва, доступные снаружи класса.
