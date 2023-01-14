@@ -1,29 +1,29 @@
 // https://learn.javascript.ru/promise-chaining
 
 // Вызов `promise.then()` тоже возвращает промис с результатом выполнения, поэтому мы можем вызывать цепочку `.then()` и модифицировать результат в каждом звене.
-// const promise = new Promise((resolve, reject) => {
-//   setTimeout(() => resolve(1), 1000);
-// }).then((result) => {
-//   console.log(result * 2);
-//   return result * 2;
-// }).then((result) => {
-//   console.log(result * 2);
-//   return result * 2;
-// });                         // Output: 2    4    (after 1 sec)
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 1000);
+}).then((result) => {
+  console.log(result * 2);
+  return result * 2;
+}).then((result) => {
+  console.log(result * 2);
+  return result * 2;
+});                         // Output: 2    4    (after 1 sec)
 
 
 // Результатом `.then()` может стать новый промис. В таком случае промис задержит цепочку результатов, до тех пор пока не выполнится.
-// const promise2 = new Promise((resolve, reject) => {
-//   setTimeout(() => resolve(1), 1000);
-// }).then((result) => {
-//   console.log(result * 2);
-//   return new Promise(resolve => {
-//     setTimeout(() => resolve(result * 2), 1000);
-//   });
-// }).then((result) => {
-//   console.log(result * 2);
-//   return result * 2;
-// });                         // Output: 2 (after 1 sec)    4 (after 2 sec)
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 1000);
+}).then((result) => {
+  console.log(result * 2);
+  return new Promise(resolve => {
+    setTimeout(() => resolve(result * 2), 1000);
+  });
+}).then((result) => {
+  console.log(result * 2);
+  return result * 2;
+});                         // Output: 2 (after 1 sec)    4 (after 2 sec)
 
 
 // (!) тут бы пример
@@ -60,5 +60,4 @@ new Promise(resolve => {
 
 // promise.then(f1, f2);
 
-// нет, фрагменты не эквивалентны. В первом мы передадим ошибку в catch(), а во втором ошибка остается необработанной
-// (!) (!) (!) это нужно затестить (!) (!) (!)
+// Нет, фрагменты не эквивалентны. В первом мы передадим ошибку в catch(), а во втором обрабатываем ошибку в then()
