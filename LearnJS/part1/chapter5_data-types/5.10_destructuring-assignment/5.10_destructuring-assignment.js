@@ -9,15 +9,18 @@ console.log(a, b, c);            // Output: 'a' 'b' 'c'
 const [one, two, three] = new Set([1, 2, 3]);
 console.log(one, two, three);    // Output: 1 2 3
 
+
 // Можно пропустить переменную, указав 'холостую' запятую
 const [jopapa, , jepopo] = 'Cool Man Nice Code'.split(' ');
 console.log(jopapa);    // Output: 'Cool'
 console.log(jepopo);    // Output: 'Nice'
 
+
 // Можно деструктурирующе присваивать св-ва объекту
 const obj = {};
 [obj.name, obj.value] = 'Cool Man Nice Code'.split(' ');
 console.log(obj);     // Output: { name: 'Cool', value: 'Man' }
+
 
 // Можно поменять переменные местами без буфера
 let j = 'jojo';
@@ -26,10 +29,12 @@ let o = 'onePeace';
 [j, n, o] = [n, o, j];
 console.log(j, n, o);      // Output: 'naruto' 'onePeace' 'jojo'
 
+
 // Оператор ...rest - ставится в конце, собирает оставшиеся переменные в массив
 const [jepo, jepa, ...jopi] = 'Cool Man Nice Code'.split(' ');
 console.log(jopi[0]);     // Output: 'Nice'
 console.log(jopi[1]);     // Output: 'Code'
+
 
 // Деструктуризация поддерживает значения переменных по-умолчанию
 const [
@@ -44,14 +49,14 @@ console.log(value, name1);     // Output: 'j' 'gnifemos'
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Деструктуризация для объекта происходит с помощью фигурных скобок - `{}` и ключей свойств (если такого ключа нет - присваивает undefined)
-// если нужно поместить значение в переменную с другим названием - {length: second} (length => second)
+// если нужно поместить значение в переменную с другим названием - {length: renamedProp} (length => renamedProp)
 const fish = {
   family: 'clown',
   mass: 15,
   length: 25,
 };
-const {family, length: second, mass} = fish;
-console.log(family, second, mass);    // Output: 'clown' 25 15
+const {family, length: renamedProp, mass} = fish;
+console.log(family, renamedProp, mass);    // Output: 'clown' 25 15
 
 
 // JS видит `{}` вне выражения (без let, const и тп в начале) как блок кода. Поэтому иногда приходится использовать `()`

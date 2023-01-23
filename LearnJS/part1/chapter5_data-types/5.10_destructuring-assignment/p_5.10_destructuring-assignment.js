@@ -72,3 +72,13 @@ const arr7 = [123, 456, 789, 0];
 const obj7 = {'0': arr7[0], '1': arr7[1], '2': arr7[2], '3': arr7[3]};
 // const obj7 = Object.fromEntries(arr7.entries());                             // same shit
 console.log(obj7);
+
+
+
+// Task 8
+// Какой будет вывод?
+const { name: myName } = { name: "Lydia" };
+
+console.log(name);                          // ReferenceError  - тк name теперь называется myName
+
+
