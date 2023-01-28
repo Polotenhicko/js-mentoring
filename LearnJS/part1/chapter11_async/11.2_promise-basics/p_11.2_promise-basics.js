@@ -143,7 +143,7 @@ const timer1 = setTimeout(() => {
 
 const timer2 = setTimeout(() => {
   console.log('timer2');
-}, 0);                       // Output: 'timer1' 'promise1' 'timer2'     - микрозадачи выполняются все сразу (в области видимости), затем 1 макрозадача, повторять.
+}, 0);                       // Output: 'timer1' 'promise1' 'timer2'     - микрозадачи выполняются все сразу (в области выполнения), затем 1 макрозадача, повторять.
 
 
 

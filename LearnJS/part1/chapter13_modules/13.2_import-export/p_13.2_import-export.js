@@ -44,10 +44,8 @@
 
 
 // Ненужное удалить:
-// A: { default: function default(), name: "Lydia" }
-// B: { default: function default() }
-// C: { default: "Hello world", name: "Lydia" }
-// D: Global object of module.js
+// { default: function default(), name: "Lydia" }
+// - импорт всего (*) создает объект с св-ми, которые содержат ссылки на все экспорты. Дефолтный экспорт лежит в св-ве `default`
 
 
 
@@ -63,8 +61,10 @@
 // import * as sum from './sum';
 
 
-// Ненужное удалить:
-// A: sum(4)
-// B: sum.sum(4)
-// C: sum.default(4)
-// D: Нельзя импортировать значения по умолчанию используя *, только именованные экспорты
+// sum.default(4)       - импорт всего (*) создает объект с св-ми, которые содержат ссылки на все экспорты. Дефолтный экспорт лежит в св-ве `default`
+
+function prot() {
+  console.log( x );
+}
+Object.prototype.x  =  10;
+prot();
