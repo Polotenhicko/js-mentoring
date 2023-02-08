@@ -28,11 +28,20 @@ class Item1 {
 //    Метод - свойство объекта или класса, представляющее собой функцию. Синтаксис - `method() {}`. Тут два метода - статический и публичный `get()`.
 // 3) Класс это конструктор объектов, созданный с помощью ключевого слова `class`. Экземпляр класса это объект, созданный классом с помощью ключевого слова `new`.
 // 4) Статические св-ва => класс. Публичные св-ва => прототип. Приватные св-ва => прототип.
+// ------ CrossCheck:
+// 4 - В нашем примере свойство data = 10 пойдёт в инстанс, а не в прототип. Если имел в виду публичный метод, то да, пойдёт в прототип
+// Приватные свойства у нас идут в инстанс (не защищённые), как и приватные методы
+// ------
 // 5) В результате первого for выведется: static data - методы `enumerable: false`, остальное лежит в прототипе.
 //    В результате второго for выведется: data - методы `enumerable: false`, остальное лежит в классе.
 //    В результате первого spread выведется: { static data } - методы `enumerable: false`, остальное лежит в классе.
 //    В результате второго spread выведется: { data } - методы `enumerable: false`, остальное лежит в классе.
 
+// --- CrossCheck:
+// Да, у методов enumerable: false, поэтому они не выводятся у for, ведь forin идёт по прототипам
+// Но spread оператор не вернул метод get потому что тот не идёт дальше в прототип, а не из-за enumerable
+// Хотя spread оператор не вернул бы свойство если бы у него было бы enumerable: false и лежал бы в инстансе
+// ---
 
 
 // Task 2
@@ -68,21 +77,34 @@ console.log(new CItem(1000).getProp()); // expect 2105
 
 // Решение: ------------------------------------------------------------------------------------------------------------
 function PBasicItem(_testProp) {
-  this._parentProp = _testProp + 100;
+	this._parentProp = _testProp + 100;
 
-  this.getParentProp = function () {
-    return this._parentProp;
-  }
+	// --- CrossCheck:
+	// метод getParentProp идёт в прототип, а не в инстанс
+  // и не каждый раз при вызове, а при инициализации класса
+	// ---
+	this.getParentProp = function () {
+		return this._parentProp;
+	};
 }
 
 function PItem(_testProp) {
-  Object.setPrototypeOf(PItem, PBasicItem);
+  // --- CrossCheck:
+  // Верно на половину. У нас наследуются статические свойства
+  // Не хватает только наследования по прототипам чтобы мы могли вызывать унаследованные методы
+  // ---
+  Object.setPrototypeOf(PItem, PBasicItem);  
 
   PItem.data = 5;
 
   this._testProp = _testProp;
 
   this.getProp = function () {
+    // --- CrossCheck:
+    // Не хватает логики вызова родительского конструктора чобы можно было работать как в классах
+    // Типа new PItem(1000).getParentProp();
+    // Тогда пропадёт огромная конструкция ниже
+    // ---
     const parent = new (Object.getPrototypeOf(Object.getPrototypeOf(this).constructor))(_testProp);     // хы
     return this._testProp + parent.getParentProp() + PItem.data;
   }
